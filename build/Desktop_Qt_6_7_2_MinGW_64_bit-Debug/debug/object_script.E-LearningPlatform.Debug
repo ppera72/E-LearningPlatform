@@ -1,0 +1,12 @@
+debug/date.o
+debug/loginwindow.o
+debug/main.o
+debug/person.o
+debug/professor.o
+debug/professormain.o
+debug/queryfunctions.o
+debug/student.o
+debug/studentmain.o
+debug/moc_loginwindow.o
+debug/moc_professormain.o
+debug/moc_studentmain.o

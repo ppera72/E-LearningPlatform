@@ -1,0 +1,578 @@
+/********************************************************************************
+** Form generated from reading UI file 'professormain.ui'
+**
+** Created by: Qt User Interface Compiler version 6.7.2
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_PROFESSORMAIN_H
+#define UI_PROFESSORMAIN_H
+
+#include <QtCore/QVariant>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDateEdit>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_professorMain
+{
+public:
+    QStackedWidget *stackedWidget;
+    QWidget *professorMainPage;
+    QPushButton *PMLogOutButton;
+    QLabel *PMNameLabel;
+    QLabel *PMWelcomeLabel;
+    QPushButton *PMAddNewAssignmentButton;
+    QPushButton *PMAddNewTestButton;
+    QPushButton *PMGradeSelectedAssignmentButton;
+    QListWidget *PMAssignmentsToGradeList;
+    QLabel *PMAssignmentsToGradeLabel;
+    QPushButton *PMViewAccountDataButton;
+    QWidget *PMAccountDetailsPage;
+    QPushButton *PMChangeNameButton;
+    QPushButton *PMChangeSurnameButton;
+    QPushButton *PMChangePasswordButton;
+    QPushButton *PMChangeEmailButton;
+    QPushButton *PMAccountDetailsBackButton;
+    QLabel *PMADSurnameLabel;
+    QLabel *PMADCurrentSciSpec;
+    QLabel *PMADCurrentEmail;
+    QLabel *PMADSciSpecLabel;
+    QLabel *PMADCurrentPassword;
+    QLabel *PMADIDLabel;
+    QLabel *PMADNameLabel;
+    QLabel *PMADEmailLabel;
+    QLabel *PMADCurrentName;
+    QLabel *PMADPasswordLabel;
+    QLabel *PMADDateOfBirthLabel;
+    QLabel *PMADCurrentSurname;
+    QLabel *PMADCurrentDateOfBirth;
+    QLabel *PMADCurrentID;
+    QLabel *PMADTitleLabel;
+    QLabel *PMADCurrentTitle;
+    QWidget *addTestPage;
+    QLabel *ATLabel;
+    QLabel *ATTitleLabel;
+    QLabel *ATEndDateLabel;
+    QLineEdit *ATTitleInput;
+    QDateEdit *ATEndDateDateEdit;
+    QLabel *ATBeginDateLabel;
+    QDateEdit *ATBeginDateDateEdit;
+    QLabel *ATCourceCodeLabel;
+    QLabel *ATQuestionsLabel;
+    QPushButton *ATAddQuestionsButton;
+    QPushButton *ATAddTestButton;
+    QPushButton *ATCancelButton;
+    QListWidget *ATQuestionsList;
+    QComboBox *ATCourceCodeCombo;
+    QWidget *ATAddQuestionsPage;
+    QLabel *ATAQLabel;
+    QLabel *ATAQNumberOfQuestionsLabel;
+    QSpinBox *ATAQNumberOfQuestionsSpinBox;
+    QPushButton *ATAQAddQuestionsButton;
+    QListWidget *ATAQQuestionsList;
+    QPushButton *ATAQConfirmQuestionsButton;
+    QPushButton *ATAQCancelButton;
+    QLabel *ATAQQuestionsLabel;
+    QWidget *addAssignmentPage;
+    QLabel *AALabel;
+    QLabel *AATitleLabel;
+    QLabel *AADescriptionLabel;
+    QLabel *AABeginDateLabel;
+    QLabel *AAEndDateLabel;
+    QDateEdit *AABeginDateDateEdit;
+    QDateEdit *AAEndDateDateEdit;
+    QLineEdit *AATitleInput;
+    QLineEdit *AADesctiptionInput;
+    QPushButton *AAAddButton;
+    QPushButton *AACancelButton;
+    QLabel *AACourceCodeLabel;
+    QComboBox *AACourceCodeCombo;
+    QWidget *PMGTAPage;
+    QPushButton *PMGTACancelButton;
+    QLabel *PMGTALabel;
+    QLabel *PMGTASenderLabel;
+    QLabel *PMGTASenderDataLabel;
+    QLabel *PMGTATitleLabel;
+    QListWidget *PMGTAListOfFiles;
+    QLabel *PMGTAListOfFilesLabel;
+    QPushButton *PMGTAViewSelectedFileButton;
+    QPushButton *PMGTAGradeTheAssignmentButton;
+    QLabel *PMGTATitleDataLabel;
+    QComboBox *PMGTAGradeCombo;
+    QLineEdit *PMGTAFeedbackComment;
+    QWidget *PMGTAViewFilePage;
+    QPlainTextEdit *plainTextEdit;
+    QPushButton *PMGTAVTFBackButton;
+
+    void setupUi(QDialog *professorMain)
+    {
+        if (professorMain->objectName().isEmpty())
+            professorMain->setObjectName("professorMain");
+        professorMain->resize(800, 600);
+        stackedWidget = new QStackedWidget(professorMain);
+        stackedWidget->setObjectName("stackedWidget");
+        stackedWidget->setGeometry(QRect(0, 0, 801, 621));
+        stackedWidget->setContextMenuPolicy(Qt::ContextMenuPolicy::DefaultContextMenu);
+        professorMainPage = new QWidget();
+        professorMainPage->setObjectName("professorMainPage");
+        PMLogOutButton = new QPushButton(professorMainPage);
+        PMLogOutButton->setObjectName("PMLogOutButton");
+        PMLogOutButton->setGeometry(QRect(590, 530, 80, 24));
+        PMNameLabel = new QLabel(professorMainPage);
+        PMNameLabel->setObjectName("PMNameLabel");
+        PMNameLabel->setGeometry(QRect(180, 110, 161, 31));
+        QFont font;
+        font.setPointSize(14);
+        PMNameLabel->setFont(font);
+        PMWelcomeLabel = new QLabel(professorMainPage);
+        PMWelcomeLabel->setObjectName("PMWelcomeLabel");
+        PMWelcomeLabel->setGeometry(QRect(80, 110, 101, 31));
+        PMWelcomeLabel->setFont(font);
+        PMAddNewAssignmentButton = new QPushButton(professorMainPage);
+        PMAddNewAssignmentButton->setObjectName("PMAddNewAssignmentButton");
+        PMAddNewAssignmentButton->setGeometry(QRect(550, 140, 141, 24));
+        PMAddNewTestButton = new QPushButton(professorMainPage);
+        PMAddNewTestButton->setObjectName("PMAddNewTestButton");
+        PMAddNewTestButton->setGeometry(QRect(550, 200, 141, 24));
+        PMGradeSelectedAssignmentButton = new QPushButton(professorMainPage);
+        PMGradeSelectedAssignmentButton->setObjectName("PMGradeSelectedAssignmentButton");
+        PMGradeSelectedAssignmentButton->setGeometry(QRect(100, 470, 171, 24));
+        PMAssignmentsToGradeList = new QListWidget(professorMainPage);
+        PMAssignmentsToGradeList->setObjectName("PMAssignmentsToGradeList");
+        PMAssignmentsToGradeList->setGeometry(QRect(40, 330, 301, 121));
+        PMAssignmentsToGradeLabel = new QLabel(professorMainPage);
+        PMAssignmentsToGradeLabel->setObjectName("PMAssignmentsToGradeLabel");
+        PMAssignmentsToGradeLabel->setGeometry(QRect(40, 290, 221, 31));
+        PMAssignmentsToGradeLabel->setFont(font);
+        PMViewAccountDataButton = new QPushButton(professorMainPage);
+        PMViewAccountDataButton->setObjectName("PMViewAccountDataButton");
+        PMViewAccountDataButton->setGeometry(QRect(550, 280, 141, 24));
+        stackedWidget->addWidget(professorMainPage);
+        PMAccountDetailsPage = new QWidget();
+        PMAccountDetailsPage->setObjectName("PMAccountDetailsPage");
+        PMChangeNameButton = new QPushButton(PMAccountDetailsPage);
+        PMChangeNameButton->setObjectName("PMChangeNameButton");
+        PMChangeNameButton->setGeometry(QRect(480, 160, 111, 41));
+        PMChangeSurnameButton = new QPushButton(PMAccountDetailsPage);
+        PMChangeSurnameButton->setObjectName("PMChangeSurnameButton");
+        PMChangeSurnameButton->setGeometry(QRect(600, 160, 111, 41));
+        PMChangePasswordButton = new QPushButton(PMAccountDetailsPage);
+        PMChangePasswordButton->setObjectName("PMChangePasswordButton");
+        PMChangePasswordButton->setGeometry(QRect(600, 110, 111, 41));
+        PMChangeEmailButton = new QPushButton(PMAccountDetailsPage);
+        PMChangeEmailButton->setObjectName("PMChangeEmailButton");
+        PMChangeEmailButton->setGeometry(QRect(480, 110, 111, 41));
+        PMAccountDetailsBackButton = new QPushButton(PMAccountDetailsPage);
+        PMAccountDetailsBackButton->setObjectName("PMAccountDetailsBackButton");
+        PMAccountDetailsBackButton->setGeometry(QRect(570, 520, 80, 24));
+        PMADSurnameLabel = new QLabel(PMAccountDetailsPage);
+        PMADSurnameLabel->setObjectName("PMADSurnameLabel");
+        PMADSurnameLabel->setGeometry(QRect(40, 250, 71, 16));
+        QFont font1;
+        font1.setPointSize(12);
+        PMADSurnameLabel->setFont(font1);
+        PMADCurrentSciSpec = new QLabel(PMAccountDetailsPage);
+        PMADCurrentSciSpec->setObjectName("PMADCurrentSciSpec");
+        PMADCurrentSciSpec->setGeometry(QRect(220, 470, 231, 21));
+        PMADCurrentSciSpec->setFont(font1);
+        PMADCurrentEmail = new QLabel(PMAccountDetailsPage);
+        PMADCurrentEmail->setObjectName("PMADCurrentEmail");
+        PMADCurrentEmail->setGeometry(QRect(140, 350, 241, 21));
+        PMADCurrentEmail->setFont(font1);
+        PMADSciSpecLabel = new QLabel(PMAccountDetailsPage);
+        PMADSciSpecLabel->setObjectName("PMADSciSpecLabel");
+        PMADSciSpecLabel->setGeometry(QRect(40, 470, 161, 21));
+        PMADSciSpecLabel->setFont(font1);
+        PMADCurrentPassword = new QLabel(PMAccountDetailsPage);
+        PMADCurrentPassword->setObjectName("PMADCurrentPassword");
+        PMADCurrentPassword->setGeometry(QRect(150, 390, 201, 16));
+        PMADCurrentPassword->setFont(font1);
+        PMADIDLabel = new QLabel(PMAccountDetailsPage);
+        PMADIDLabel->setObjectName("PMADIDLabel");
+        PMADIDLabel->setGeometry(QRect(40, 160, 49, 16));
+        PMADIDLabel->setFont(font1);
+        PMADNameLabel = new QLabel(PMAccountDetailsPage);
+        PMADNameLabel->setObjectName("PMADNameLabel");
+        PMADNameLabel->setGeometry(QRect(40, 200, 49, 16));
+        PMADNameLabel->setFont(font1);
+        PMADEmailLabel = new QLabel(PMAccountDetailsPage);
+        PMADEmailLabel->setObjectName("PMADEmailLabel");
+        PMADEmailLabel->setGeometry(QRect(40, 350, 49, 16));
+        PMADEmailLabel->setFont(font1);
+        PMADCurrentName = new QLabel(PMAccountDetailsPage);
+        PMADCurrentName->setObjectName("PMADCurrentName");
+        PMADCurrentName->setGeometry(QRect(140, 200, 251, 21));
+        PMADCurrentName->setFont(font1);
+        PMADPasswordLabel = new QLabel(PMAccountDetailsPage);
+        PMADPasswordLabel->setObjectName("PMADPasswordLabel");
+        PMADPasswordLabel->setGeometry(QRect(40, 390, 71, 16));
+        PMADPasswordLabel->setFont(font1);
+        PMADDateOfBirthLabel = new QLabel(PMAccountDetailsPage);
+        PMADDateOfBirthLabel->setObjectName("PMADDateOfBirthLabel");
+        PMADDateOfBirthLabel->setGeometry(QRect(40, 300, 91, 16));
+        PMADDateOfBirthLabel->setFont(font1);
+        PMADCurrentSurname = new QLabel(PMAccountDetailsPage);
+        PMADCurrentSurname->setObjectName("PMADCurrentSurname");
+        PMADCurrentSurname->setGeometry(QRect(130, 250, 251, 21));
+        PMADCurrentSurname->setFont(font1);
+        PMADCurrentDateOfBirth = new QLabel(PMAccountDetailsPage);
+        PMADCurrentDateOfBirth->setObjectName("PMADCurrentDateOfBirth");
+        PMADCurrentDateOfBirth->setGeometry(QRect(170, 300, 221, 21));
+        PMADCurrentDateOfBirth->setFont(font1);
+        PMADCurrentID = new QLabel(PMAccountDetailsPage);
+        PMADCurrentID->setObjectName("PMADCurrentID");
+        PMADCurrentID->setGeometry(QRect(140, 160, 221, 21));
+        PMADCurrentID->setFont(font1);
+        PMADTitleLabel = new QLabel(PMAccountDetailsPage);
+        PMADTitleLabel->setObjectName("PMADTitleLabel");
+        PMADTitleLabel->setGeometry(QRect(40, 430, 49, 16));
+        PMADTitleLabel->setFont(font1);
+        PMADCurrentTitle = new QLabel(PMAccountDetailsPage);
+        PMADCurrentTitle->setObjectName("PMADCurrentTitle");
+        PMADCurrentTitle->setGeometry(QRect(150, 430, 211, 16));
+        PMADCurrentTitle->setFont(font1);
+        stackedWidget->addWidget(PMAccountDetailsPage);
+        addTestPage = new QWidget();
+        addTestPage->setObjectName("addTestPage");
+        ATLabel = new QLabel(addTestPage);
+        ATLabel->setObjectName("ATLabel");
+        ATLabel->setGeometry(QRect(260, 50, 241, 51));
+        ATLabel->setBaseSize(QSize(0, 0));
+        QFont font2;
+        font2.setPointSize(28);
+        ATLabel->setFont(font2);
+        ATTitleLabel = new QLabel(addTestPage);
+        ATTitleLabel->setObjectName("ATTitleLabel");
+        ATTitleLabel->setGeometry(QRect(50, 120, 51, 31));
+        ATTitleLabel->setFont(font);
+        ATEndDateLabel = new QLabel(addTestPage);
+        ATEndDateLabel->setObjectName("ATEndDateLabel");
+        ATEndDateLabel->setGeometry(QRect(440, 240, 81, 31));
+        ATEndDateLabel->setFont(font);
+        ATTitleInput = new QLineEdit(addTestPage);
+        ATTitleInput->setObjectName("ATTitleInput");
+        ATTitleInput->setGeometry(QRect(190, 130, 491, 24));
+        ATEndDateDateEdit = new QDateEdit(addTestPage);
+        ATEndDateDateEdit->setObjectName("ATEndDateDateEdit");
+        ATEndDateDateEdit->setGeometry(QRect(570, 240, 101, 25));
+        ATBeginDateLabel = new QLabel(addTestPage);
+        ATBeginDateLabel->setObjectName("ATBeginDateLabel");
+        ATBeginDateLabel->setGeometry(QRect(440, 190, 101, 31));
+        ATBeginDateLabel->setFont(font);
+        ATBeginDateDateEdit = new QDateEdit(addTestPage);
+        ATBeginDateDateEdit->setObjectName("ATBeginDateDateEdit");
+        ATBeginDateDateEdit->setGeometry(QRect(570, 190, 101, 25));
+        ATCourceCodeLabel = new QLabel(addTestPage);
+        ATCourceCodeLabel->setObjectName("ATCourceCodeLabel");
+        ATCourceCodeLabel->setGeometry(QRect(40, 190, 121, 31));
+        ATCourceCodeLabel->setFont(font);
+        ATQuestionsLabel = new QLabel(addTestPage);
+        ATQuestionsLabel->setObjectName("ATQuestionsLabel");
+        ATQuestionsLabel->setGeometry(QRect(40, 300, 111, 31));
+        ATQuestionsLabel->setFont(font);
+        ATAddQuestionsButton = new QPushButton(addTestPage);
+        ATAddQuestionsButton->setObjectName("ATAddQuestionsButton");
+        ATAddQuestionsButton->setGeometry(QRect(320, 500, 111, 31));
+        ATAddTestButton = new QPushButton(addTestPage);
+        ATAddTestButton->setObjectName("ATAddTestButton");
+        ATAddTestButton->setGeometry(QRect(90, 500, 101, 31));
+        ATCancelButton = new QPushButton(addTestPage);
+        ATCancelButton->setObjectName("ATCancelButton");
+        ATCancelButton->setGeometry(QRect(580, 500, 101, 31));
+        ATQuestionsList = new QListWidget(addTestPage);
+        ATQuestionsList->setObjectName("ATQuestionsList");
+        ATQuestionsList->setGeometry(QRect(190, 300, 501, 151));
+        ATCourceCodeCombo = new QComboBox(addTestPage);
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->addItem(QString());
+        ATCourceCodeCombo->setObjectName("ATCourceCodeCombo");
+        ATCourceCodeCombo->setGeometry(QRect(170, 200, 231, 24));
+        stackedWidget->addWidget(addTestPage);
+        ATAddQuestionsPage = new QWidget();
+        ATAddQuestionsPage->setObjectName("ATAddQuestionsPage");
+        ATAQLabel = new QLabel(ATAddQuestionsPage);
+        ATAQLabel->setObjectName("ATAQLabel");
+        ATAQLabel->setGeometry(QRect(220, 50, 341, 51));
+        ATAQLabel->setBaseSize(QSize(0, 0));
+        ATAQLabel->setFont(font2);
+        ATAQNumberOfQuestionsLabel = new QLabel(ATAddQuestionsPage);
+        ATAQNumberOfQuestionsLabel->setObjectName("ATAQNumberOfQuestionsLabel");
+        ATAQNumberOfQuestionsLabel->setGeometry(QRect(40, 160, 191, 31));
+        ATAQNumberOfQuestionsLabel->setFont(font);
+        ATAQNumberOfQuestionsSpinBox = new QSpinBox(ATAddQuestionsPage);
+        ATAQNumberOfQuestionsSpinBox->setObjectName("ATAQNumberOfQuestionsSpinBox");
+        ATAQNumberOfQuestionsSpinBox->setGeometry(QRect(260, 160, 81, 31));
+        ATAQAddQuestionsButton = new QPushButton(ATAddQuestionsPage);
+        ATAQAddQuestionsButton->setObjectName("ATAQAddQuestionsButton");
+        ATAQAddQuestionsButton->setGeometry(QRect(70, 480, 111, 31));
+        ATAQQuestionsList = new QListWidget(ATAddQuestionsPage);
+        ATAQQuestionsList->setObjectName("ATAQQuestionsList");
+        ATAQQuestionsList->setGeometry(QRect(240, 240, 491, 192));
+        ATAQConfirmQuestionsButton = new QPushButton(ATAddQuestionsPage);
+        ATAQConfirmQuestionsButton->setObjectName("ATAQConfirmQuestionsButton");
+        ATAQConfirmQuestionsButton->setGeometry(QRect(310, 480, 121, 31));
+        ATAQCancelButton = new QPushButton(ATAddQuestionsPage);
+        ATAQCancelButton->setObjectName("ATAQCancelButton");
+        ATAQCancelButton->setGeometry(QRect(590, 480, 101, 31));
+        ATAQQuestionsLabel = new QLabel(ATAddQuestionsPage);
+        ATAQQuestionsLabel->setObjectName("ATAQQuestionsLabel");
+        ATAQQuestionsLabel->setGeometry(QRect(40, 230, 101, 31));
+        ATAQQuestionsLabel->setFont(font);
+        stackedWidget->addWidget(ATAddQuestionsPage);
+        addAssignmentPage = new QWidget();
+        addAssignmentPage->setObjectName("addAssignmentPage");
+        AALabel = new QLabel(addAssignmentPage);
+        AALabel->setObjectName("AALabel");
+        AALabel->setGeometry(QRect(220, 50, 361, 51));
+        AALabel->setBaseSize(QSize(0, 0));
+        AALabel->setFont(font2);
+        AATitleLabel = new QLabel(addAssignmentPage);
+        AATitleLabel->setObjectName("AATitleLabel");
+        AATitleLabel->setGeometry(QRect(40, 140, 51, 31));
+        AATitleLabel->setFont(font);
+        AADescriptionLabel = new QLabel(addAssignmentPage);
+        AADescriptionLabel->setObjectName("AADescriptionLabel");
+        AADescriptionLabel->setGeometry(QRect(40, 210, 111, 31));
+        AADescriptionLabel->setFont(font);
+        AABeginDateLabel = new QLabel(addAssignmentPage);
+        AABeginDateLabel->setObjectName("AABeginDateLabel");
+        AABeginDateLabel->setGeometry(QRect(40, 370, 101, 31));
+        AABeginDateLabel->setFont(font);
+        AAEndDateLabel = new QLabel(addAssignmentPage);
+        AAEndDateLabel->setObjectName("AAEndDateLabel");
+        AAEndDateLabel->setGeometry(QRect(40, 420, 81, 31));
+        AAEndDateLabel->setFont(font);
+        AABeginDateDateEdit = new QDateEdit(addAssignmentPage);
+        AABeginDateDateEdit->setObjectName("AABeginDateDateEdit");
+        AABeginDateDateEdit->setGeometry(QRect(180, 380, 171, 25));
+        AAEndDateDateEdit = new QDateEdit(addAssignmentPage);
+        AAEndDateDateEdit->setObjectName("AAEndDateDateEdit");
+        AAEndDateDateEdit->setGeometry(QRect(180, 430, 161, 25));
+        AATitleInput = new QLineEdit(addAssignmentPage);
+        AATitleInput->setObjectName("AATitleInput");
+        AATitleInput->setGeometry(QRect(180, 150, 491, 24));
+        AADesctiptionInput = new QLineEdit(addAssignmentPage);
+        AADesctiptionInput->setObjectName("AADesctiptionInput");
+        AADesctiptionInput->setGeometry(QRect(170, 220, 511, 61));
+        AADesctiptionInput->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop);
+        AAAddButton = new QPushButton(addAssignmentPage);
+        AAAddButton->setObjectName("AAAddButton");
+        AAAddButton->setGeometry(QRect(180, 490, 121, 31));
+        AACancelButton = new QPushButton(addAssignmentPage);
+        AACancelButton->setObjectName("AACancelButton");
+        AACancelButton->setGeometry(QRect(490, 490, 101, 31));
+        AACourceCodeLabel = new QLabel(addAssignmentPage);
+        AACourceCodeLabel->setObjectName("AACourceCodeLabel");
+        AACourceCodeLabel->setGeometry(QRect(40, 300, 121, 31));
+        AACourceCodeLabel->setFont(font);
+        AACourceCodeCombo = new QComboBox(addAssignmentPage);
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->addItem(QString());
+        AACourceCodeCombo->setObjectName("AACourceCodeCombo");
+        AACourceCodeCombo->setGeometry(QRect(180, 310, 231, 24));
+        stackedWidget->addWidget(addAssignmentPage);
+        PMGTAPage = new QWidget();
+        PMGTAPage->setObjectName("PMGTAPage");
+        PMGTACancelButton = new QPushButton(PMGTAPage);
+        PMGTACancelButton->setObjectName("PMGTACancelButton");
+        PMGTACancelButton->setGeometry(QRect(540, 520, 80, 24));
+        PMGTALabel = new QLabel(PMGTAPage);
+        PMGTALabel->setObjectName("PMGTALabel");
+        PMGTALabel->setGeometry(QRect(260, 60, 211, 21));
+        PMGTALabel->setFont(font1);
+        PMGTASenderLabel = new QLabel(PMGTAPage);
+        PMGTASenderLabel->setObjectName("PMGTASenderLabel");
+        PMGTASenderLabel->setGeometry(QRect(40, 150, 71, 16));
+        PMGTASenderLabel->setFont(font1);
+        PMGTASenderDataLabel = new QLabel(PMGTAPage);
+        PMGTASenderDataLabel->setObjectName("PMGTASenderDataLabel");
+        PMGTASenderDataLabel->setGeometry(QRect(120, 150, 311, 21));
+        PMGTASenderDataLabel->setFont(font1);
+        PMGTATitleLabel = new QLabel(PMGTAPage);
+        PMGTATitleLabel->setObjectName("PMGTATitleLabel");
+        PMGTATitleLabel->setGeometry(QRect(30, 210, 151, 21));
+        PMGTATitleLabel->setFont(font1);
+        PMGTAListOfFiles = new QListWidget(PMGTAPage);
+        PMGTAListOfFiles->setObjectName("PMGTAListOfFiles");
+        PMGTAListOfFiles->setGeometry(QRect(60, 340, 256, 141));
+        PMGTAListOfFilesLabel = new QLabel(PMGTAPage);
+        PMGTAListOfFilesLabel->setObjectName("PMGTAListOfFilesLabel");
+        PMGTAListOfFilesLabel->setGeometry(QRect(30, 290, 131, 16));
+        PMGTAListOfFilesLabel->setFont(font1);
+        PMGTAViewSelectedFileButton = new QPushButton(PMGTAPage);
+        PMGTAViewSelectedFileButton->setObjectName("PMGTAViewSelectedFileButton");
+        PMGTAViewSelectedFileButton->setGeometry(QRect(120, 500, 131, 24));
+        PMGTAGradeTheAssignmentButton = new QPushButton(PMGTAPage);
+        PMGTAGradeTheAssignmentButton->setObjectName("PMGTAGradeTheAssignmentButton");
+        PMGTAGradeTheAssignmentButton->setGeometry(QRect(540, 370, 141, 24));
+        PMGTATitleDataLabel = new QLabel(PMGTAPage);
+        PMGTATitleDataLabel->setObjectName("PMGTATitleDataLabel");
+        PMGTATitleDataLabel->setGeometry(QRect(180, 210, 291, 21));
+        PMGTAGradeCombo = new QComboBox(PMGTAPage);
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->addItem(QString());
+        PMGTAGradeCombo->setObjectName("PMGTAGradeCombo");
+        PMGTAGradeCombo->setGeometry(QRect(490, 140, 101, 31));
+        PMGTAFeedbackComment = new QLineEdit(PMGTAPage);
+        PMGTAFeedbackComment->setObjectName("PMGTAFeedbackComment");
+        PMGTAFeedbackComment->setGeometry(QRect(490, 190, 241, 161));
+        PMGTAFeedbackComment->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop);
+        stackedWidget->addWidget(PMGTAPage);
+        PMGTAViewFilePage = new QWidget();
+        PMGTAViewFilePage->setObjectName("PMGTAViewFilePage");
+        plainTextEdit = new QPlainTextEdit(PMGTAViewFilePage);
+        plainTextEdit->setObjectName("plainTextEdit");
+        plainTextEdit->setGeometry(QRect(80, 80, 591, 411));
+        PMGTAVTFBackButton = new QPushButton(PMGTAViewFilePage);
+        PMGTAVTFBackButton->setObjectName("PMGTAVTFBackButton");
+        PMGTAVTFBackButton->setGeometry(QRect(550, 540, 80, 24));
+        stackedWidget->addWidget(PMGTAViewFilePage);
+
+        retranslateUi(professorMain);
+
+        stackedWidget->setCurrentIndex(0);
+
+
+        QMetaObject::connectSlotsByName(professorMain);
+    } // setupUi
+
+    void retranslateUi(QDialog *professorMain)
+    {
+        professorMain->setWindowTitle(QCoreApplication::translate("professorMain", "Dialog", nullptr));
+#if QT_CONFIG(tooltip)
+        stackedWidget->setToolTip(QString());
+#endif // QT_CONFIG(tooltip)
+        PMLogOutButton->setText(QCoreApplication::translate("professorMain", "Log Out", nullptr));
+        PMNameLabel->setText(QString());
+        PMWelcomeLabel->setText(QCoreApplication::translate("professorMain", "Welcome ", nullptr));
+        PMAddNewAssignmentButton->setText(QCoreApplication::translate("professorMain", "Add New Assignment", nullptr));
+        PMAddNewTestButton->setText(QCoreApplication::translate("professorMain", "Add New Test", nullptr));
+        PMGradeSelectedAssignmentButton->setText(QCoreApplication::translate("professorMain", "Grade Selected Assignment", nullptr));
+        PMAssignmentsToGradeLabel->setText(QCoreApplication::translate("professorMain", "Assignments to grade:", nullptr));
+        PMViewAccountDataButton->setText(QCoreApplication::translate("professorMain", "View Account Data", nullptr));
+        PMChangeNameButton->setText(QCoreApplication::translate("professorMain", "Change Name", nullptr));
+        PMChangeSurnameButton->setText(QCoreApplication::translate("professorMain", "Change Surname", nullptr));
+        PMChangePasswordButton->setText(QCoreApplication::translate("professorMain", "Change Password", nullptr));
+        PMChangeEmailButton->setText(QCoreApplication::translate("professorMain", "Change Email", nullptr));
+        PMAccountDetailsBackButton->setText(QCoreApplication::translate("professorMain", "Back", nullptr));
+        PMADSurnameLabel->setText(QCoreApplication::translate("professorMain", "Surname:", nullptr));
+        PMADCurrentSciSpec->setText(QString());
+        PMADCurrentEmail->setText(QString());
+        PMADSciSpecLabel->setText(QCoreApplication::translate("professorMain", "Scientic Specialization:", nullptr));
+        PMADCurrentPassword->setText(QString());
+        PMADIDLabel->setText(QCoreApplication::translate("professorMain", "ID:", nullptr));
+        PMADNameLabel->setText(QCoreApplication::translate("professorMain", "Name:", nullptr));
+        PMADEmailLabel->setText(QCoreApplication::translate("professorMain", "Email:", nullptr));
+        PMADCurrentName->setText(QString());
+        PMADPasswordLabel->setText(QCoreApplication::translate("professorMain", "Password:", nullptr));
+        PMADDateOfBirthLabel->setText(QCoreApplication::translate("professorMain", "Date of Birth:", nullptr));
+        PMADCurrentSurname->setText(QString());
+        PMADCurrentDateOfBirth->setText(QString());
+        PMADCurrentID->setText(QString());
+        PMADTitleLabel->setText(QCoreApplication::translate("professorMain", "Title:", nullptr));
+        PMADCurrentTitle->setText(QString());
+        ATLabel->setText(QCoreApplication::translate("professorMain", "Add New Test", nullptr));
+        ATTitleLabel->setText(QCoreApplication::translate("professorMain", "Title:", nullptr));
+        ATEndDateLabel->setText(QCoreApplication::translate("professorMain", "End Date:", nullptr));
+        ATEndDateDateEdit->setDisplayFormat(QCoreApplication::translate("professorMain", "dd-MM-yyyy", nullptr));
+        ATBeginDateLabel->setText(QCoreApplication::translate("professorMain", "Begin Date:", nullptr));
+        ATBeginDateDateEdit->setDisplayFormat(QCoreApplication::translate("professorMain", "dd-MM-yyyy", nullptr));
+        ATCourceCodeLabel->setText(QCoreApplication::translate("professorMain", "Cource Code:", nullptr));
+        ATQuestionsLabel->setText(QCoreApplication::translate("professorMain", "Questions:", nullptr));
+        ATAddQuestionsButton->setText(QCoreApplication::translate("professorMain", "Add Questions", nullptr));
+        ATAddTestButton->setText(QCoreApplication::translate("professorMain", "Add Test", nullptr));
+        ATCancelButton->setText(QCoreApplication::translate("professorMain", "Cancel", nullptr));
+        ATCourceCodeCombo->setItemText(0, QCoreApplication::translate("professorMain", "Aviation and Astronautics [AvAs]", nullptr));
+        ATCourceCodeCombo->setItemText(1, QCoreApplication::translate("professorMain", "Chemical Engineering and Technology [ChET]", nullptr));
+        ATCourceCodeCombo->setItemText(2, QCoreApplication::translate("professorMain", "Chemical Technology [ChTe]", nullptr));
+        ATCourceCodeCombo->setItemText(3, QCoreApplication::translate("professorMain", "Civil Engineering [CiEn]", nullptr));
+        ATCourceCodeCombo->setItemText(4, QCoreApplication::translate("professorMain", "Computer Engineering [CoEn]", nullptr));
+        ATCourceCodeCombo->setItemText(5, QCoreApplication::translate("professorMain", "Electrical Engineering [ElEn]", nullptr));
+        ATCourceCodeCombo->setItemText(6, QCoreApplication::translate("professorMain", "Finance and Accounting [FiAc]", nullptr));
+        ATCourceCodeCombo->setItemText(7, QCoreApplication::translate("professorMain", "Logistics [Logi]", nullptr));
+        ATCourceCodeCombo->setItemText(8, QCoreApplication::translate("professorMain", "Modern Management [MoMa]", nullptr));
+
+        ATAQLabel->setText(QCoreApplication::translate("professorMain", "Add New Questions", nullptr));
+        ATAQNumberOfQuestionsLabel->setText(QCoreApplication::translate("professorMain", "Number of Questions:", nullptr));
+        ATAQAddQuestionsButton->setText(QCoreApplication::translate("professorMain", "Add Questions", nullptr));
+        ATAQConfirmQuestionsButton->setText(QCoreApplication::translate("professorMain", "Confirm Questions", nullptr));
+        ATAQCancelButton->setText(QCoreApplication::translate("professorMain", "Cancel", nullptr));
+        ATAQQuestionsLabel->setText(QCoreApplication::translate("professorMain", "Questions:", nullptr));
+        AALabel->setText(QCoreApplication::translate("professorMain", "Add New Assignment", nullptr));
+        AATitleLabel->setText(QCoreApplication::translate("professorMain", "Title:", nullptr));
+        AADescriptionLabel->setText(QCoreApplication::translate("professorMain", "Description:", nullptr));
+        AABeginDateLabel->setText(QCoreApplication::translate("professorMain", "Begin Date:", nullptr));
+        AAEndDateLabel->setText(QCoreApplication::translate("professorMain", "End Date:", nullptr));
+        AABeginDateDateEdit->setDisplayFormat(QCoreApplication::translate("professorMain", "dd-MM-yyyy", nullptr));
+        AAEndDateDateEdit->setDisplayFormat(QCoreApplication::translate("professorMain", "dd-MM-yyyy", nullptr));
+        AAAddButton->setText(QCoreApplication::translate("professorMain", "Add Assignment", nullptr));
+        AACancelButton->setText(QCoreApplication::translate("professorMain", "Cancel", nullptr));
+        AACourceCodeLabel->setText(QCoreApplication::translate("professorMain", "Cource Code:", nullptr));
+        AACourceCodeCombo->setItemText(0, QCoreApplication::translate("professorMain", "Aviation and Astronautics [AvAs]", nullptr));
+        AACourceCodeCombo->setItemText(1, QCoreApplication::translate("professorMain", "Chemical Engineering and Technology [ChET]", nullptr));
+        AACourceCodeCombo->setItemText(2, QCoreApplication::translate("professorMain", "Chemical Technology [ChTe]", nullptr));
+        AACourceCodeCombo->setItemText(3, QCoreApplication::translate("professorMain", "Civil Engineering [CiEn]", nullptr));
+        AACourceCodeCombo->setItemText(4, QCoreApplication::translate("professorMain", "Computer Engineering [CoEn]", nullptr));
+        AACourceCodeCombo->setItemText(5, QCoreApplication::translate("professorMain", "Electrical Engineering [ElEn]", nullptr));
+        AACourceCodeCombo->setItemText(6, QCoreApplication::translate("professorMain", "Finance and Accounting [FiAc]", nullptr));
+        AACourceCodeCombo->setItemText(7, QCoreApplication::translate("professorMain", "Logistics [Logi]", nullptr));
+        AACourceCodeCombo->setItemText(8, QCoreApplication::translate("professorMain", "Modern Management [MoMa]", nullptr));
+
+        PMGTACancelButton->setText(QCoreApplication::translate("professorMain", "Cancel", nullptr));
+        PMGTALabel->setText(QCoreApplication::translate("professorMain", "Grade The Assignment", nullptr));
+        PMGTASenderLabel->setText(QCoreApplication::translate("professorMain", "Sender:", nullptr));
+        PMGTASenderDataLabel->setText(QString());
+        PMGTATitleLabel->setText(QCoreApplication::translate("professorMain", "Title of Assignment:", nullptr));
+        PMGTAListOfFilesLabel->setText(QCoreApplication::translate("professorMain", "List of Files Sent:", nullptr));
+        PMGTAViewSelectedFileButton->setText(QCoreApplication::translate("professorMain", "View Selected File", nullptr));
+        PMGTAGradeTheAssignmentButton->setText(QCoreApplication::translate("professorMain", "Grade The Assignment", nullptr));
+        PMGTATitleDataLabel->setText(QString());
+        PMGTAGradeCombo->setItemText(0, QCoreApplication::translate("professorMain", "2.0", nullptr));
+        PMGTAGradeCombo->setItemText(1, QCoreApplication::translate("professorMain", "3.0", nullptr));
+        PMGTAGradeCombo->setItemText(2, QCoreApplication::translate("professorMain", "3.5", nullptr));
+        PMGTAGradeCombo->setItemText(3, QCoreApplication::translate("professorMain", "4.0", nullptr));
+        PMGTAGradeCombo->setItemText(4, QCoreApplication::translate("professorMain", "4.5", nullptr));
+        PMGTAGradeCombo->setItemText(5, QCoreApplication::translate("professorMain", "5.0", nullptr));
+
+        PMGTAVTFBackButton->setText(QCoreApplication::translate("professorMain", "Back", nullptr));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class professorMain: public Ui_professorMain {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_PROFESSORMAIN_H

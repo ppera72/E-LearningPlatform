@@ -1,0 +1,12 @@
+release/date.o
+release/loginwindow.o
+release/main.o
+release/person.o
+release/professor.o
+release/professormain.o
+release/queryfunctions.o
+release/student.o
+release/studentmain.o
+release/moc_loginwindow.o
+release/moc_professormain.o
+release/moc_studentmain.o
