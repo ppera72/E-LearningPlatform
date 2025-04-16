@@ -34,7 +34,7 @@ public:
     void insertAssignment(QString title, QString desc, QString cC, QString begDate, QString endDate);
     std::vector<std::vector<QString>> getProfAssignments(QString cC);
     std::vector<std::vector<QString>> getStudUpcomAssignments(QString cC);
-    std::vector<std::vector<QString>> getStudComplAssignments(QString cC);
+    std::vector<std::vector<QString>> getStudComplAssignments(int id);
 };
 
 #endif // QUERYFUNCTIONS_H

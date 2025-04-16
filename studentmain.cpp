@@ -1,4 +1,5 @@
 #include "studentmain.h"
+#include "qmessagebox.h"
 #include "ui_studentmain.h"
 #include <QInputDialog>
 #include <QtSql/QSqlDatabase>
@@ -47,7 +48,7 @@ void studentMain::onLogin(){
 
 void studentMain::getAssignments(){
     std::vector<std::vector<QString>> assignments = QueryFunctions.getStudUpcomAssignments(currentStudent.CourseCode());
-    std::vector<std::vector<QString>> assignmentsComp = QueryFunctions.getStudComplAssignments(currentStudent.CourseCode());
+    std::vector<std::vector<QString>> assignmentsComp = QueryFunctions.getStudComplAssignments(currentStudent.Id());
     for(auto&& assignment : assignments){
         ui->SMUpcomingAssignmentsList->addItem(assignment[1] + ", End Date: " + assignment[4]);
     }
@@ -133,9 +134,31 @@ void studentMain::on_SMStartSelectedTestButton_clicked()
 // SOLVE THE TEST PAGE END
 
 // SEND THE ASSIGNMENT PAGE
-void studentMain::on_SMStartSelectedAssignmentButton_clicked()
-{
+void studentMain::on_SMStartSelectedAssignmentButton_clicked(){
+    QListWidgetItem* selectedAssignment;
+    QString fileForAssignment;
+    // get assignment data
+    if(ui->SMUpcomingAssignmentsList->selectedItems().size() == 0){
+        QMessageBox::warning(this, "Sending assignment", "No assignment has been selected!\nPlease select assignment!", QMessageBox::Ok);
+    }
+    else if(ui->SMUpcomingAssignmentsList->selectedItems().size() > 1){
+        QMessageBox::warning(this, "Sending assignment", "You can only select one assignment at a time!", QMessageBox::Ok);
+    }
+    else{
+        // check if nothing is selected
+        selectedAssignment = ui->SMUpcomingAssignmentsList->currentItem();
+        if(selectedAssignment->text().isEmpty()){
+            QMessageBox::warning(this, "Starting Assignment", "No assignment has been selected!\nPlease select assignment!", QMessageBox::Ok);
+        }
+        else{
 
+
+            // display data
+            ui->stackedWidget->setCurrentIndex(10);
+            //ui->SMSTATitleLabel->setText(QString::fromStdString(helpAssignmentVec[1]));
+            //ui->SMSTADescriptionLabel->setText(QString::fromStdString(helpAssignmentVec[2]));
+        }
+    }
 }
 
 void studentMain::on_SMSTACancelButton_clicked()

@@ -371,11 +371,11 @@ std::vector<std::vector<QString> > queryFunctions::getStudUpcomAssignments(QStri
     return vec;
 }
 
-std::vector<std::vector<QString> > queryFunctions::getStudComplAssignments(QString cC){
+std::vector<std::vector<QString> > queryFunctions::getStudComplAssignments(int id){
     std::vector<std::vector<QString>> vec;
     QSqlQuery query;
-    query.prepare("SELECT * FROM assignments WHERE id_major = (SELECT id_major FROM major WHERE abbreviation = :cc) AND filename IS NOT NULL");
-    query.bindValue(":cc", cC);
+    query.prepare("SELECT * FROM completedAssignments WHERE id_stud = :id");
+    query.bindValue(":id", id);
     bool resData = query.exec();
     if (!resData) {
         qDebug() << "SQL ERROR: " << query.lastError().text();
