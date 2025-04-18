@@ -33,8 +33,12 @@ public:
     std::vector<std::vector<QString>> getStudentGrades(int id);
     void insertAssignment(QString title, QString desc, QString cC, QString begDate, QString endDate);
     std::vector<std::vector<QString>> getProfAssignments(QString cC);
-    std::vector<std::vector<QString>> getStudUpcomAssignments(QString cC);
+    std::vector<std::vector<QString>> getStudUpcomAssignments(QString cC, int id);
     std::vector<std::vector<QString>> getStudComplAssignments(int id);
+    std::vector<std::vector<QString>> getStudUpcomTests(QString cC, int id);
+    std::vector<std::vector<QString>> getStudComplTests(int id);
+    std::vector<QString> getAssignment(int assignmentID, QString assignmentTitle);
+    void sendAssignment(int assignmentID, int studentID, QString file, QString cC);
 };
 
 #endif // QUERYFUNCTIONS_H

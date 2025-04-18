@@ -19,6 +19,7 @@ public:
     queryFunctions QueryFunctions;
     void onLogin();
     void getAssignments();
+    void getTests();
     Student currentStudent;
 signals:
     void backLogin();

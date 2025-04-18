@@ -100,6 +100,7 @@ void loginWindow::on_loginButton_clicked()
                 StudentMain->show();
                 StudentMain->onLogin();
                 StudentMain->getAssignments();
+                StudentMain->getTests();
                 //qDebug()<<st.Id()<<", "<<st.Name()<<", "<<st.Surname();
             }
             else if(professorStatus){
