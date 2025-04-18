@@ -323,22 +323,41 @@ void queryFunctions::insertAssignment(QString title, QString desc, QString cC, Q
 std::vector<std::vector<QString>> queryFunctions::getProfAssignments(QString cC){
     std::vector<std::vector<QString>> vec;
     QSqlQuery query;
-    query.prepare("SELECT * FROM assignments WHERE id_major = (SELECT id_major FROM major WHERE abbreviation = :cc) AND isGraded = 'false' AND filename IS NOT NULL");
+    query.prepare("SELECT * FROM completedAssignments WHERE id_major = (SELECT id_major FROM major WHERE abbreviation = :cc) AND isGraded = false");
     query.bindValue(":cc", cC);
-    bool resData = query.exec();
-    if (!resData) {
+    bool resCompAss = query.exec();
+    if (!resCompAss) {
         qDebug() << "SQL ERROR: " << query.lastError().text();
     }
 
+    std::vector<int> assignmentsVec;
+    std::vector<int> senderID;
     while(query.next()){
-        std::vector<QString> innerVec;
-        innerVec.push_back(query.value(0).toString()); //id_assignment
-        innerVec.push_back(query.value(1).toString()); //title
-        innerVec.push_back(query.value(2).toString()); //desc
-        innerVec.push_back(query.value(3).toString()); //beginDate
-        innerVec.push_back(query.value(4).toString()); //endDate
-        innerVec.push_back(query.value(5).toString()); //id_major
-        vec.push_back(innerVec);
+        assignmentsVec.push_back(query.value(1).toInt()); //id_assignment
+        senderID.push_back(query.value(2).toInt()); // id_stud
+    }
+    query.clear();
+
+    for (size_t i = 0; i < assignmentsVec.size(); ++i) {
+        int idAss = assignmentsVec[i];
+        int idStud = senderID[i];
+        query.prepare("SELECT * FROM assignments WHERE id_assignments = :idAss");
+        query.bindValue(":idAss", idAss);
+        bool resAss = query.exec();
+        if (!resAss) {
+            qDebug() << "SQL ERROR: " << query.lastError().text();
+        }
+        while(query.next()){
+            std::vector<QString> innerVec;
+            innerVec.push_back(query.value(0).toString()); //id_assignment
+            innerVec.push_back(query.value(1).toString()); //assignmentTitle
+            innerVec.push_back(query.value(2).toString()); //assignmentDesc
+            innerVec.push_back(query.value(3).toString()); //assignmentBeginDate
+            innerVec.push_back(query.value(4).toString()); //assignmentEndDate
+            innerVec.push_back(query.value(5).toString()); //assignmentIDMajor
+            innerVec.push_back(QString::number(idStud)); //id_stud
+            vec.push_back(innerVec);
+        }
     }
     return vec;
 }
@@ -499,4 +518,125 @@ void queryFunctions::sendAssignment(int assignmentID, int studentID, QString fil
         qDebug() << "SQL ERROR: " << query.lastError().text();
     }
     query.clear();
+}
+
+std::vector<QString> queryFunctions::getSenderData(int studentID){
+    std::vector<QString> vec;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM studentData WHERE id_stud = :idStud");
+    query.bindValue(":idStud", studentID);
+    bool resQuery = query.exec();
+    if (!resQuery) {
+        qDebug() << "SQL ERROR: " << query.lastError().text();
+    }
+    while(query.next()){
+        vec.push_back(query.value(0).toString()); //id_stud
+        vec.push_back(query.value(1).toString()); //name
+        vec.push_back(query.value(2).toString()); //surname
+        vec.push_back(query.value(3).toString()); //dateOfBirth
+        vec.push_back(query.value(4).toString()); //id_major
+        vec.push_back(query.value(5).toString()); //studiesYear
+    }
+    return vec;
+}
+
+std::vector<QString> queryFunctions::getCompletedAssignment(int assignmentID, int studentID){
+    std::vector<QString> vec;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM completedAssignment WHERE id_assignment = :assignmentID AND id_stud = :studentID");
+    query.bindValue(":assignmentID", assignmentID);
+    query.bindValue(":studentID", studentID);
+    bool resQuery = query.exec();
+    if (!resQuery) {
+        qDebug() << "SQL ERROR: " << query.lastError().text();
+    }
+    while(query.next()){
+        vec.push_back(query.value(0).toString()); //id_ca
+        vec.push_back(query.value(1).toString()); //id_assignment
+        vec.push_back(query.value(2).toString()); //id_stud
+        vec.push_back(query.value(3).toString()); //filename
+        vec.push_back(query.value(4).toString()); //isGraded
+        vec.push_back(query.value(5).toString()); //id_major
+    }
+    return vec;
+}
+
+void queryFunctions::insertGrade(int studentID, int professorID, int assignmentID, int testID, int grade, QString comment){
+    QSqlQuery query;
+    query.prepare("INSERT INTO studentGrades (id_stud, id_prof, id_assignment, id_test, grade, comment) VALUES (:idStud, :idProf, :idAss, :idTest, :grade, :comment)");
+    query.bindValue(":idStud", studentID);
+    query.bindValue(":idProf", professorID);
+    if(assignmentID == 0){
+        query.bindValue(":idAss", NULL);
+        query.bindValue(":idTest", testID);
+    }
+    else if(testID == 0){
+        query.bindValue(":idAss", assignmentID);
+        query.bindValue(":idTest", NULL);
+    }
+    query.bindValue(":grade", grade);
+    query.bindValue(":comment", comment);
+
+    bool res = query.exec();
+    if(!res){
+        qDebug() << "SQL ERROR: " << query.lastError().text();
+    }
+    query.clear();
+}
+
+void queryFunctions::updateCompletedAssignment(int complAssignmentID){
+    QSqlQuery query;
+    query.prepare("UPDATE completedAssignments SET isGraded = true WHERE id_ca = :idCA");
+    query.bindValue(":idCA", complAssignmentID);
+    bool res = query.exec();
+    if(!res){
+        qDebug() << "SQL ERROR: " << query.lastError().text();
+    }
+    query.clear();
+}
+
+void queryFunctions::insertTest(QString title, QString begDate, QString endDate, QString cC, QList<std::vector<QString>> questionsAnswers){
+    QSqlQuery test, testQuestions;
+    test.prepare("INSERT INTO tests (testTitle, testBeginDate, testEndDate, id_major) VALUES (:title, :begDate, :endDate, (SELECT id_major FROM major WHERE abbreviation = :cc))");
+    test.bindValue(":title", title);
+    test.bindValue(":begDate", begDate);
+    test.bindValue(":endDate", endDate);
+    test.bindValue(":cc", cC);
+    bool resData = test.exec();
+    if (!resData) {
+        qDebug() << "SQL ERROR: " << test.lastError().text();
+    }
+    test.clear();
+
+    test.prepare("SELECT id_test FROM tests WHERE testTitle = :title AND testBeginDate = :begDate AND testEndDate = :endDate AND id_major = (SELECT id_major FROM major WHERE abbreviation = :cc)");
+    test.bindValue(":title", title);
+    test.bindValue(":begDate", begDate);
+    test.bindValue(":endDate", endDate);
+    test.bindValue(":cc", cC);
+    bool ans = test.exec();
+    if (!ans) {
+        qDebug() << "SQL ERROR: " << test.lastError().text();
+    }
+    int testID;
+    while(test.next()){
+        testID = test.value(0).toInt();
+    }
+
+    test.clear();
+
+    for(auto&& queAns : questionsAnswers){
+        testQuestions.prepare("INSERT INTO testQuestions VALUES (:id, :question, :corrAns, :wroAns1, :wroAns2, :wroAns3)");
+        testQuestions.bindValue(":id", testID);
+        testQuestions.bindValue(":question", queAns[0]);
+        testQuestions.bindValue(":corrAns", queAns[1]);
+        testQuestions.bindValue(":wroAns1", queAns[2]);
+        testQuestions.bindValue(":wroAns2", queAns[3]);
+        testQuestions.bindValue(":wroAns3", queAns[4]);
+        bool resAcc = testQuestions.exec();
+        if(!resAcc){
+            qDebug() << "SQL ERROR: " << testQuestions.lastError().text();
+        }
+        testQuestions.clear();
+    }
+
 }
