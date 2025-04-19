@@ -102,7 +102,7 @@ void professorMain::on_PMGradeSelectedAssignmentButton_clicked(){
             // display data
             selectedAssignment = selectedAssignmentQList->text();
             assignmentID = selectedAssignment.split("|").first().trimmed().toInt();
-            int senderID = selectedAssignment.split("|").last().trimmed().toInt();
+            int senderID = selectedAssignment.split("|").last().trimmed().toInt(); // trim selectedAssignment
             std::vector<QString> assignment = QueryFunctions.getAssignment(assignmentID, selectedAssignment);
             std::vector<QString> senderData = QueryFunctions.getSenderData(senderID);
             std::vector<QString> completedAssignment = QueryFunctions.getCompletedAssignment(assignmentID, senderID);
@@ -210,7 +210,7 @@ void professorMain::on_ATAddTestButton_clicked(){
         if(reply == QMessageBox::Yes){
 
             // add to Test + Test Questions
-            QueryFunctions.insertTest(ATTitle, ATBeginDate, ATEndDate, ATCourceCode, ATQuestions);
+            QueryFunctions.insertTest(ATTitle, ATBeginDate, ATEndDate, ATCourceCode, currentProfessor.Id(), ATQuestions);
 
             ui->ATTitleInput->clear();
             ui->ATQuestionsList->clear();

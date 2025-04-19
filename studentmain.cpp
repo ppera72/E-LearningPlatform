@@ -139,17 +139,76 @@ void studentMain::on_SMAccountDetailsBackButton_clicked(){
 // ACCOUNT DETAILS PAGE END
 
 // SOLVE THE TEST PAGE
+QListWidgetItem* testQList;
+QString selectedTest;
 void studentMain::on_SMStartSelectedTestButton_clicked(){
+    int correctAnswersScore = 0;
+    int testID;
+    testQList = ui->SMUpcomingTestsList->currentItem();
+    if(testQList->text().isEmpty()){
+        QMessageBox::warning(this, "Starting Test", "No test has been selected!\nPlease select test!", QMessageBox::Ok);
+    }
+    else{
+        //get data
+        selectedTest = testQList->text().split("|").last().trimmed(); // get Prof ID
+        testID = selectedTest.split("|").first().trimmed().toInt();
+        std::vector<std::vector<QString>> testQuestions = QueryFunctions.getTestQuestions(testID);
 
+        //solving
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->SMSTTAllAnswersLabel->setText(QString::number(testQuestions.size()));
+
+        for(auto&& test : testQuestions){
+            ui->SMSTTCorrectAnswersLabel->setText(QString::number(correctAnswersScore));
+
+            QEventLoop loop;
+            std::vector<QString> answers = {test[2], test[3], test[4], test[5]};
+            ui->SMSTTQuestionLabel->setText(test[1]);
+
+            QRadioButton* ansButtons[] = {ui->SMSTTAnswer1Button, ui->SMSTTAnswer2Button, ui->SMSTTAnswer3Button, ui->SMSTTAnswer4Button};
+            std::srand(std::time(nullptr));
+            std::random_shuffle(answers.begin(), answers.end());  // shuffle answers
+            for (int i = 0; i < 4; ++i) {
+                ansButtons[i]->setText(answers[i]);
+            }
+
+            QObject::connect(ui->SMSTTNextQuestionButton, &QPushButton::clicked, &loop, &QEventLoop::quit);  // wait for nextQuestionButton
+            loop.exec();
+
+            for(int i = 0; i < 4; i++){  // check answer
+                if(ansButtons[i]->isChecked()){
+                    if(ansButtons[i]->text() == test[2]){
+                        correctAnswersScore += 1;
+                        break;
+                    }
+                }
+                ansButtons[i]->setChecked(false);
+            }
+            ui->SMSTTCorrectAnswersLabel->setText(QString::number(correctAnswersScore));
+        }
+
+        //grade and insert into studentGrades
+
+        QString grade = "";
+
+        QString messBoxMessage = "You've completed this test\nYou've scored: " + QString::number(correctAnswersScore) + " and got: " + grade;
+        QMessageBox::information(this, "Test Completed!", messBoxMessage, QMessageBox::Ok);
+
+        // insert
+        //QueryFunctions.insertGrade(currentStudent.Id(), )
+
+        getTests();
+        ui->stackedWidget->setCurrentIndex(0);
+    }
 }
 
 // SOLVE THE TEST PAGE END
 
 // SEND THE ASSIGNMENT PAGE
-QString fileForAssignment;
-QListWidgetItem* selectedAssignmentQList;
-QString selectedAssignment;
-int assignmentID;
+QString assignmentFile;
+QListWidgetItem* selectedAssQList;
+QString selectedAss;
+int assID;
 void studentMain::on_SMStartSelectedAssignmentButton_clicked(){
     // get assignment data
     if(ui->SMUpcomingAssignmentsList->selectedItems().size() == 0){
@@ -160,15 +219,15 @@ void studentMain::on_SMStartSelectedAssignmentButton_clicked(){
     }
     else{
         // check if nothing is selected
-        selectedAssignmentQList = ui->SMUpcomingAssignmentsList->currentItem();
-        if(selectedAssignmentQList->text().isEmpty()){
+        selectedAssQList = ui->SMUpcomingAssignmentsList->currentItem();
+        if(selectedAssQList->text().isEmpty()){
             QMessageBox::warning(this, "Starting Assignment", "No assignment has been selected!\nPlease select assignment!", QMessageBox::Ok);
         }
         else{
             // display data
-            selectedAssignment = selectedAssignmentQList->text();
-            assignmentID = selectedAssignment.split("|").first().trimmed().toInt();
-            std::vector<QString> assignment = QueryFunctions.getAssignment(assignmentID, selectedAssignment);
+            selectedAss = selectedAssQList->text();
+            assID = selectedAss.split("|").first().trimmed().toInt(); // trim selectedAssignment?
+            std::vector<QString> assignment = QueryFunctions.getAssignment(assID, selectedAss);
             ui->stackedWidget->setCurrentIndex(3);
             ui->SMSTATitleLabel->setText(assignment[1]);
             ui->SMSTADescriptionLabel->setText(assignment[2]);
@@ -190,7 +249,7 @@ void studentMain::on_SMSTASendAssignmentButton_clicked(){
         QMessageBox::warning(this, "Sending assignment error!", "File list is empty!\nPlease add a file to your assignment!", QMessageBox::Ok);
     }
     //send
-    QueryFunctions.sendAssignment(assignmentID, currentStudent.Id(), fileForAssignment, currentStudent.CourseCode());
+    QueryFunctions.sendAssignment(assID, currentStudent.Id(), assignmentFile, currentStudent.CourseCode());
     QMessageBox::information(this, "Sending Assignment", "Assignemnt Send Successfully!", QMessageBox::Ok);
     ui->SMSTAFileList->clear();
 
@@ -208,7 +267,7 @@ void studentMain::on_SMSTAAddFileButton_clicked(){
     QList<QListWidgetItem *> list = ui->SMSTAFileList->findItems(fileName, Qt::MatchExactly);  // find all files with fileName name
     if(list.size() == 0){
         ui->SMSTAFileList->addItem(fileName);
-        fileForAssignment = fileName;
+        assignmentFile = fileName;
     }
     else{
         QMessageBox::warning(this, "Adding file error!", "File already in list!", QMessageBox::Ok);

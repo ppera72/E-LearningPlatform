@@ -43,7 +43,8 @@ public:
     std::vector<QString> getCompletedAssignment(int assignmentID, int studentID);
     void insertGrade(int studentID, int professorID, int assignmentID, int testID, int grade, QString comment);
     void updateCompletedAssignment(int complAssignmentID);
-    void insertTest(QString title, QString begDate, QString endDate, QString cC, QList<std::vector<QString>>questionsAnswers);
+    void insertTest(QString title, QString begDate, QString endDate, QString cC, int profID, QList<std::vector<QString>>questionsAnswers);
+    std::vector<std::vector<QString>> getTestQuestions(int testID);
 };
 
 #endif // QUERYFUNCTIONS_H

@@ -595,24 +595,26 @@ void queryFunctions::updateCompletedAssignment(int complAssignmentID){
     query.clear();
 }
 
-void queryFunctions::insertTest(QString title, QString begDate, QString endDate, QString cC, QList<std::vector<QString>> questionsAnswers){
+void queryFunctions::insertTest(QString title, QString begDate, QString endDate, QString cC, int profID, QList<std::vector<QString>> questionsAnswers){
     QSqlQuery test, testQuestions;
-    test.prepare("INSERT INTO tests (testTitle, testBeginDate, testEndDate, id_major) VALUES (:title, :begDate, :endDate, (SELECT id_major FROM major WHERE abbreviation = :cc))");
+    test.prepare("INSERT INTO tests (testTitle, testBeginDate, testEndDate, id_major, id_prof) VALUES (:title, :begDate, :endDate, (SELECT id_major FROM major WHERE abbreviation = :cc), :profID)");
     test.bindValue(":title", title);
     test.bindValue(":begDate", begDate);
     test.bindValue(":endDate", endDate);
     test.bindValue(":cc", cC);
+    test.bindValue(":profID", profID);
     bool resData = test.exec();
     if (!resData) {
         qDebug() << "SQL ERROR: " << test.lastError().text();
     }
     test.clear();
 
-    test.prepare("SELECT id_test FROM tests WHERE testTitle = :title AND testBeginDate = :begDate AND testEndDate = :endDate AND id_major = (SELECT id_major FROM major WHERE abbreviation = :cc)");
+    test.prepare("SELECT id_test FROM tests WHERE testTitle = :title AND testBeginDate = :begDate AND testEndDate = :endDate AND id_major = (SELECT id_major FROM major WHERE abbreviation = :cc) AND id_prof = :profID");
     test.bindValue(":title", title);
     test.bindValue(":begDate", begDate);
     test.bindValue(":endDate", endDate);
     test.bindValue(":cc", cC);
+    test.bindValue(":profID", profID);
     bool ans = test.exec();
     if (!ans) {
         qDebug() << "SQL ERROR: " << test.lastError().text();
@@ -639,4 +641,26 @@ void queryFunctions::insertTest(QString title, QString begDate, QString endDate,
         testQuestions.clear();
     }
 
+}
+
+std::vector<std::vector<QString> > queryFunctions::getTestQuestions(int testID){
+    QSqlQuery query;
+    std::vector<std::vector<QString>> vec;
+    query.prepare("SELECT * FROM testQuestions WHERE id_test = :testID");
+    query.bindValue(":testID", testID);
+    bool resAcc = query.exec();
+    if(!resAcc){
+        qDebug() << "SQL ERROR: " << query.lastError().text();
+    }
+    while(query.next()){
+        std::vector<QString> innerVec;
+        innerVec.push_back(query.value(0).toString()); //id_test
+        innerVec.push_back(query.value(1).toString()); //question
+        innerVec.push_back(query.value(2).toString()); //correctAns
+        innerVec.push_back(query.value(3).toString()); //wrongAns1
+        innerVec.push_back(query.value(4).toString()); //wrongAns2
+        innerVec.push_back(query.value(5).toString()); //wrongAns3
+        vec.push_back(innerVec);
+    }
+    return vec;
 }
