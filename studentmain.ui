@@ -29,7 +29,7 @@
     <string/>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="studentMainPage">
     <widget class="QPushButton" name="SMLogOutButton">
@@ -634,7 +634,7 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">

@@ -26,6 +26,8 @@ signals:
 
 private:
     Ui::studentMain *ui;
+    float assignAGrade(int corrAns, int numOfQ);
+
     void on_changeEmailButton_clicked();
     void on_changePasswordButton_clicked();
     void on_changeNameButton_clicked();

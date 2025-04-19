@@ -41,10 +41,11 @@ public:
     void sendAssignment(int assignmentID, int studentID, QString file, QString cC);
     std::vector<QString> getSenderData(int studentID);
     std::vector<QString> getCompletedAssignment(int assignmentID, int studentID);
-    void insertGrade(int studentID, int professorID, int assignmentID, int testID, int grade, QString comment);
+    void insertGrade(int studentID, int professorID, int assignmentID, int testID, float grade, QString comment);
     void updateCompletedAssignment(int complAssignmentID);
     void insertTest(QString title, QString begDate, QString endDate, QString cC, int profID, QList<std::vector<QString>>questionsAnswers);
     std::vector<std::vector<QString>> getTestQuestions(int testID);
+    void insertCompletedTest(int studentID, int testID);
 };
 
 #endif // QUERYFUNCTIONS_H

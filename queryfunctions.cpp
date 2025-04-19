@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include <QRegularExpression>
 #include <QtSql/QSqlDatabase>
+#include <QVariant>
 
 queryFunctions::queryFunctions() {}
 
@@ -297,6 +298,7 @@ std::vector<std::vector<QString>> queryFunctions::getStudentGrades(int id){
         innerVec.push_back(query.value(2).toString()); //id_assignment
         innerVec.push_back(query.value(3).toString()); //id_test
         innerVec.push_back(query.value(4).toString()); //grade
+        innerVec.push_back(query.value(5).toString()); //comment
         vec.push_back(innerVec);
     }
     return vec;
@@ -341,7 +343,7 @@ std::vector<std::vector<QString>> queryFunctions::getProfAssignments(QString cC)
     for (size_t i = 0; i < assignmentsVec.size(); ++i) {
         int idAss = assignmentsVec[i];
         int idStud = senderID[i];
-        query.prepare("SELECT * FROM assignments WHERE id_assignments = :idAss");
+        query.prepare("SELECT * FROM assignments WHERE id_assignment = :idAss");
         query.bindValue(":idAss", idAss);
         bool resAss = query.exec();
         if (!resAss) {
@@ -394,6 +396,7 @@ std::vector<std::vector<QString> > queryFunctions::getStudComplAssignments(int i
     query.bindValue(":id", id);
     bool resCompAss = query.exec();
     if (!resCompAss) {
+        qDebug()<<"1";
         qDebug() << "SQL ERROR: " << query.lastError().text();
     }
 
@@ -404,10 +407,11 @@ std::vector<std::vector<QString> > queryFunctions::getStudComplAssignments(int i
     query.clear();
 
     for(auto&& idAss : assignmentsVec){
-        query.prepare("SELECT * FROM assignments WHERE id_assignments = :idAss");
+        query.prepare("SELECT * FROM assignments WHERE id_assignment = :idAss");
         query.bindValue(":idAss", idAss);
         bool resAss = query.exec();
         if (!resAss) {
+            qDebug()<<"2";
             qDebug() << "SQL ERROR: " << query.lastError().text();
         }
         while(query.next()){
@@ -442,6 +446,7 @@ std::vector<std::vector<QString> > queryFunctions::getStudUpcomTests(QString cC,
         innerVec.push_back(query.value(2).toString()); //beginDate
         innerVec.push_back(query.value(3).toString()); //endDate
         innerVec.push_back(query.value(4).toString()); //id_major
+        innerVec.push_back(query.value(5).toString()); //id_prof
         vec.push_back(innerVec);
     }
 
@@ -465,7 +470,7 @@ std::vector<std::vector<QString> > queryFunctions::getStudComplTests(int id){
     query.clear();
 
     for(auto&& idTest : testsVec){
-        query.prepare("SELECT * FROM tests WHERE id_assignments = :idTest");
+        query.prepare("SELECT * FROM tests WHERE id_test = :idTest");
         query.bindValue(":idTest", idTest);
         bool resTest = query.exec();
         if (!resTest) {
@@ -543,7 +548,7 @@ std::vector<QString> queryFunctions::getSenderData(int studentID){
 std::vector<QString> queryFunctions::getCompletedAssignment(int assignmentID, int studentID){
     std::vector<QString> vec;
     QSqlQuery query;
-    query.prepare("SELECT * FROM completedAssignment WHERE id_assignment = :assignmentID AND id_stud = :studentID");
+    query.prepare("SELECT * FROM completedAssignments WHERE id_assignment = :assignmentID AND id_stud = :studentID");
     query.bindValue(":assignmentID", assignmentID);
     query.bindValue(":studentID", studentID);
     bool resQuery = query.exec();
@@ -561,18 +566,18 @@ std::vector<QString> queryFunctions::getCompletedAssignment(int assignmentID, in
     return vec;
 }
 
-void queryFunctions::insertGrade(int studentID, int professorID, int assignmentID, int testID, int grade, QString comment){
+void queryFunctions::insertGrade(int studentID, int professorID, int assignmentID, int testID, float grade, QString comment){
     QSqlQuery query;
     query.prepare("INSERT INTO studentGrades (id_stud, id_prof, id_assignment, id_test, grade, comment) VALUES (:idStud, :idProf, :idAss, :idTest, :grade, :comment)");
     query.bindValue(":idStud", studentID);
     query.bindValue(":idProf", professorID);
     if(assignmentID == 0){
-        query.bindValue(":idAss", NULL);
+        query.bindValue(":idAss", QVariant());
         query.bindValue(":idTest", testID);
     }
-    else if(testID == 0){
+    if(testID == 0){
         query.bindValue(":idAss", assignmentID);
-        query.bindValue(":idTest", NULL);
+        query.bindValue(":idTest", QVariant());
     }
     query.bindValue(":grade", grade);
     query.bindValue(":comment", comment);
@@ -580,6 +585,7 @@ void queryFunctions::insertGrade(int studentID, int professorID, int assignmentI
     bool res = query.exec();
     if(!res){
         qDebug() << "SQL ERROR: " << query.lastError().text();
+        qDebug()<<"insert grade err";
     }
     query.clear();
 }
@@ -663,4 +669,17 @@ std::vector<std::vector<QString> > queryFunctions::getTestQuestions(int testID){
         vec.push_back(innerVec);
     }
     return vec;
+}
+
+
+void queryFunctions::insertCompletedTest(int studentID, int testID){
+    QSqlQuery test;
+    test.prepare("INSERT INTO completedTests (id_test, id_stud) VALUES (:testID, :studID)");
+    test.bindValue(":testID", testID);
+    test.bindValue(":studID", studentID);
+    bool resData = test.exec();
+    if (!resData) {
+        qDebug() << "SQL ERROR: " << test.lastError().text();
+    }
+    test.clear();
 }

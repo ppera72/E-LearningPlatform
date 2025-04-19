@@ -48,7 +48,7 @@ void professorMain::onLogin(){
     ui->AAEndDateDateEdit->setDate(QDate::currentDate());
     ui->ATBeginDateDateEdit->setDate(QDate::currentDate());
     ui->ATEndDateDateEdit->setDate(QDate::currentDate());
-
+    ui->PMAssignmentsToGradeList->clear();
 }
 
 void professorMain::getAssignments(){
@@ -103,10 +103,10 @@ void professorMain::on_PMGradeSelectedAssignmentButton_clicked(){
             selectedAssignment = selectedAssignmentQList->text();
             assignmentID = selectedAssignment.split("|").first().trimmed().toInt();
             int senderID = selectedAssignment.split("|").last().trimmed().toInt(); // trim selectedAssignment
+            selectedAssignment = selectedAssignment.section("|", 1, 1).trimmed();
             std::vector<QString> assignment = QueryFunctions.getAssignment(assignmentID, selectedAssignment);
             std::vector<QString> senderData = QueryFunctions.getSenderData(senderID);
             std::vector<QString> completedAssignment = QueryFunctions.getCompletedAssignment(assignmentID, senderID);
-
 
             ui->PMGTAListOfFiles->addItem(completedAssignment[3]);
             ui->PMGTATitleDataLabel->setText(assignment[1]);
@@ -145,41 +145,7 @@ void professorMain::on_PMAccountDetailsBackButton_clicked(){
 QList<std::vector<QString>> ATQuestions, ATAQQuestions;
 
 void professorMain::on_ATAddQuestionsButton_clicked(){
-    ATQuestions.clear();
-    int ATAQNumberOfQuestions = ui->ATAQNumberOfQuestionsSpinBox->value();
-    if(ATAQNumberOfQuestions <= 0){
-        QMessageBox::warning(this, "Adding Questions", "Number of questions cannot be less than 1!\nPlease choose another number!", QMessageBox::Ok);
-    }
-    else{
-        for(int i = 0; i < ATAQNumberOfQuestions; i++){
-            bool okQ, okCA, okWA1, okWA2, okWA3;
-            std::vector<QString> questionAnswers;
-            QString question = QInputDialog::getText(this, tr("Question"),tr(&"Question " [ (i + 1) ]), QLineEdit::Normal,"Question", &okQ);
-            if (okQ && !question.isEmpty())
-            {
-                questionAnswers.push_back(question);
-                ui->ATAQQuestionsList->addItem(question);
-            }
-
-            QString correctAnswer = QInputDialog::getText(this, tr("Correct Answer"),tr("Answer: "), QLineEdit::Normal,"Correct Answer", &okCA);
-            if (okCA && !correctAnswer.isEmpty())
-                questionAnswers.push_back(correctAnswer);
-
-            QString wrongAnswer1 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 1:"), QLineEdit::Normal,"Wrong Answer", &okWA1);
-            if (okWA1 && !wrongAnswer1.isEmpty())
-                questionAnswers.push_back(wrongAnswer1);
-
-            QString wrongAnswer2 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 2:"), QLineEdit::Normal,"Wrong Answer", &okWA2);
-            if (okWA2 && !wrongAnswer2.isEmpty())
-                questionAnswers.push_back(wrongAnswer2);
-
-            QString wrongAnswer3 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 3:"), QLineEdit::Normal,"Wrong Answer", &okWA3);
-            if (okWA3 && !wrongAnswer3.isEmpty())
-                questionAnswers.push_back(wrongAnswer3);
-
-            ATAQQuestions.append(questionAnswers);
-        }
-    }
+    ui->stackedWidget->setCurrentIndex(3);
 
 }
 
@@ -231,7 +197,41 @@ void professorMain::on_ATCancelButton_clicked(){
 }
 
 void professorMain::on_ATAQAddQuestionsButton_clicked(){
-    ui->stackedWidget->setCurrentIndex(3);
+    ATQuestions.clear();
+    int ATAQNumberOfQuestions = ui->ATAQNumberOfQuestionsSpinBox->value();
+    if(ATAQNumberOfQuestions <= 0){
+        QMessageBox::warning(this, "Adding Questions", "Number of questions cannot be less than 1!\nPlease choose another number!", QMessageBox::Ok);
+    }
+    else{
+        for(int i = 0; i < ATAQNumberOfQuestions; i++){
+            bool okQ, okCA, okWA1, okWA2, okWA3;
+            std::vector<QString> questionAnswers;
+            QString question = QInputDialog::getText(this, tr("Question"),tr(&"Question " [ (i + 1) ]), QLineEdit::Normal,"Question", &okQ);
+            if (okQ && !question.isEmpty())
+            {
+                questionAnswers.push_back(question);
+                ui->ATAQQuestionsList->addItem(question);
+            }
+
+            QString correctAnswer = QInputDialog::getText(this, tr("Correct Answer"),tr("Answer: "), QLineEdit::Normal,"Correct Answer", &okCA);
+            if (okCA && !correctAnswer.isEmpty())
+                questionAnswers.push_back(correctAnswer);
+
+            QString wrongAnswer1 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 1:"), QLineEdit::Normal,"Wrong Answer", &okWA1);
+            if (okWA1 && !wrongAnswer1.isEmpty())
+                questionAnswers.push_back(wrongAnswer1);
+
+            QString wrongAnswer2 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 2:"), QLineEdit::Normal,"Wrong Answer", &okWA2);
+            if (okWA2 && !wrongAnswer2.isEmpty())
+                questionAnswers.push_back(wrongAnswer2);
+
+            QString wrongAnswer3 = QInputDialog::getText(this, tr("Wrong Answer"),tr("Wrong Answer 3:"), QLineEdit::Normal,"Wrong Answer", &okWA3);
+            if (okWA3 && !wrongAnswer3.isEmpty())
+                questionAnswers.push_back(wrongAnswer3);
+
+            ATAQQuestions.append(questionAnswers);
+        }
+    }
 }
 
 void professorMain::on_ATAQConfirmQuestionsButton_clicked(){
@@ -346,17 +346,21 @@ void professorMain::on_PMGTAGradeTheAssignmentButton_clicked(){
         selectedAssignment = selectedAssignmentQList->text();
         assignmentID = selectedAssignment.split("|").first().trimmed().toInt();
         int senderID = selectedAssignment.split("|").last().trimmed().toInt();
+        selectedAssignment = selectedAssignment.section("|", 1, 1).trimmed();
         std::vector<QString> assignment = QueryFunctions.getAssignment(assignmentID, selectedAssignment);
         std::vector<QString> completedAssignment = QueryFunctions.getCompletedAssignment(assignmentID, senderID);
         int gradedAssignmentID = completedAssignment[0].toInt();
 
         // send to StudentGrades
         QString comment = ui->PMGTAFeedbackComment->text();
-        QueryFunctions.insertGrade(senderID, currentProfessor.Id(), assignment[0].toInt(), 0, grade.toInt(), comment);
+        QueryFunctions.insertGrade(senderID, currentProfessor.Id(), assignment[0].toInt(), 0, grade.toFloat(), comment);
 
 
         // update completedAssignments
         QueryFunctions.updateCompletedAssignment(gradedAssignmentID);
+        ui->PMAssignmentsToGradeList->clear();
+        getAssignments();
+        ui->stackedWidget->setCurrentIndex(0);
     }
 }
 

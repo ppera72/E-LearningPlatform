@@ -43,8 +43,40 @@ studentMain::~studentMain()
 }
 
 // MAIN LOGIN PAGE
+float studentMain::assignAGrade(int corrAns, int numOfQ){
+    int procent = (float)corrAns / numOfQ * 100;
+    float retValue;
+    switch(procent){
+    case 0 ... 50:
+        retValue = 2.0;
+        break;
+    case 51 ... 60:
+        retValue = 3.0;
+        break;
+    case 61 ... 70:
+        retValue = 3.5;
+        break;
+    case 71 ... 80:
+        retValue = 4.0;
+        break;
+    case 81 ... 90:
+        retValue = 4.5;
+        break;
+    case 91 ... 100:
+        retValue = 5.0;
+        break;
+    default:
+        retValue = 2.0;
+        break;
+    }
+    return retValue;
+}
+
 void studentMain::onLogin(){
     ui->SMNameLabel->setText(currentStudent.Name());
+    ui->SMUpcomingAssignmentsList->clear();
+    ui->SMUpcomingTestsList->clear();
+    ui->SMCompletedTasksList->clear();
 }
 
 void studentMain::getAssignments(){
@@ -64,13 +96,15 @@ void studentMain::getTests(){
     std::vector<std::vector<QString>> tests = QueryFunctions.getStudUpcomTests(currentStudent.CourseCode(), currentStudent.Id());
     std::vector<std::vector<QString>> testsComp = QueryFunctions.getStudComplTests(currentStudent.Id());
     for(auto&& test : tests){
-        ui->SMUpcomingTestsList->addItem(test[0] + " | " + test[1]);
+        ui->SMUpcomingTestsList->addItem(test[0] + " | " + test[1] + " | From:" + test[5]);
     }
 
     for(auto&& test : testsComp){
         ui->SMCompletedTasksList->addItem(test[1]);
     }
 }
+
+
 
 void studentMain::on_SMViewAccountDataButton_clicked()
 {
@@ -143,15 +177,16 @@ QListWidgetItem* testQList;
 QString selectedTest;
 void studentMain::on_SMStartSelectedTestButton_clicked(){
     int correctAnswersScore = 0;
-    int testID;
+    int testID, profID;
     testQList = ui->SMUpcomingTestsList->currentItem();
     if(testQList->text().isEmpty()){
         QMessageBox::warning(this, "Starting Test", "No test has been selected!\nPlease select test!", QMessageBox::Ok);
     }
     else{
         //get data
-        selectedTest = testQList->text().split("|").last().trimmed(); // get Prof ID
-        testID = selectedTest.split("|").first().trimmed().toInt();
+        selectedTest = testQList->text().section("|", 1, 1).trimmed();
+        profID = testQList->text().section("From:", 1).trimmed().toInt();
+        testID = testQList->text().split("|").first().trimmed().toInt();
         std::vector<std::vector<QString>> testQuestions = QueryFunctions.getTestQuestions(testID);
 
         //solving
@@ -186,17 +221,21 @@ void studentMain::on_SMStartSelectedTestButton_clicked(){
             }
             ui->SMSTTCorrectAnswersLabel->setText(QString::number(correctAnswersScore));
         }
+        float grade = assignAGrade(correctAnswersScore, testQuestions.size());
 
-        //grade and insert into studentGrades
-
-        QString grade = "";
-
-        QString messBoxMessage = "You've completed this test\nYou've scored: " + QString::number(correctAnswersScore) + " and got: " + grade;
+        QString messBoxMessage = "You've completed this test\nYou've scored: " + QString::number(correctAnswersScore) + " and got: " + QString::number(grade);
         QMessageBox::information(this, "Test Completed!", messBoxMessage, QMessageBox::Ok);
 
-        // insert
-        //QueryFunctions.insertGrade(currentStudent.Id(), )
+        // insert grade
+        QueryFunctions.insertGrade(currentStudent.Id(), profID, 0, testID, grade, "");
 
+        // insert to completedTests
+        QueryFunctions.insertCompletedTest(currentStudent.Id(), testID);
+
+        ui->SMUpcomingAssignmentsList->clear();
+        ui->SMUpcomingTestsList->clear();
+        ui->SMCompletedTasksList->clear();
+        getAssignments();
         getTests();
         ui->stackedWidget->setCurrentIndex(0);
     }
@@ -225,8 +264,8 @@ void studentMain::on_SMStartSelectedAssignmentButton_clicked(){
         }
         else{
             // display data
-            selectedAss = selectedAssQList->text();
-            assID = selectedAss.split("|").first().trimmed().toInt(); // trim selectedAssignment?
+            selectedAss = selectedAssQList->text().section("|", 1, 1).trimmed();
+            assID = selectedAssQList->text().split("|").first().trimmed().toInt();
             std::vector<QString> assignment = QueryFunctions.getAssignment(assID, selectedAss);
             ui->stackedWidget->setCurrentIndex(3);
             ui->SMSTATitleLabel->setText(assignment[1]);
@@ -250,11 +289,16 @@ void studentMain::on_SMSTASendAssignmentButton_clicked(){
     }
     //send
     QueryFunctions.sendAssignment(assID, currentStudent.Id(), assignmentFile, currentStudent.CourseCode());
+    qDebug()<<"post sendAssignment";
     QMessageBox::information(this, "Sending Assignment", "Assignemnt Send Successfully!", QMessageBox::Ok);
     ui->SMSTAFileList->clear();
 
     // update assignmentsCompleted and assignmentsUpcoming
+    ui->SMUpcomingAssignmentsList->clear();
+    ui->SMUpcomingTestsList->clear();
+    ui->SMCompletedTasksList->clear();
     getAssignments();
+    getTests();
 
     ui->stackedWidget->setCurrentIndex(0);
     //delete selectedAssignmentQList;
@@ -277,23 +321,14 @@ void studentMain::on_SMSTAAddFileButton_clicked(){
 
 // VIEW THE GRADES PAGE
 void studentMain::on_SMViewGradesButton_clicked(){
-    /*ui->stackedWidget->setCurrentIndex(13); // change to grades page
-    ui->SMVGTable->setRowCount(UserData.studentGrades.size()); // set row count as count of grades
-    ui->SMVGTable->setColumnCount(4);
-
-    QStringList headers = {"Student ID", "Title of Assignment/Test", "Grade", "Description"}; // headers
-    ui->SMVGTable->setHorizontalHeaderLabels(headers); // set headers
-
-    writeToStudGradesTable(); //
-    ui->SMVGTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);*/
     std::vector<std::vector<QString>> grades = QueryFunctions.getStudentGrades(currentStudent.Id());
     ui->SMVGTable->setRowCount(grades.size());
-    ui->SMVGTable->setColumnCount(5);
-    QStringList headers = {"Student ID", "Professor ID",  "Assignment ID", "Test ID", "Grade"}; // headers // maybe add desc
+    ui->SMVGTable->setColumnCount(6);
+    QStringList headers = {"Student ID", "Professor ID",  "Assignment ID", "Test ID", "Grade", "Comment"}; // headers // maybe add desc
     ui->SMVGTable->setHorizontalHeaderLabels(headers);
 
     for(unsigned long long i = 0; i < grades.size(); i++){
-        for(unsigned long long j = 0; j < 5 && j < grades[i].size();++j){
+        for(unsigned long long j = 0; j < 6 && j < grades[i].size();++j){
             ui->SMVGTable->setItem(i, j, new QTableWidgetItem(grades[i][j]));
         }
     }
