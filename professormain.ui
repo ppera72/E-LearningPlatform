@@ -268,9 +268,9 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>350</y>
+       <y>340</y>
        <width>241</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -306,7 +306,7 @@
        <x>150</x>
        <y>390</y>
        <width>201</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -375,10 +375,10 @@
     <widget class="QLabel" name="PMADCurrentName">
      <property name="geometry">
       <rect>
-       <x>140</x>
-       <y>200</y>
+       <x>130</x>
+       <y>190</y>
        <width>251</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -429,10 +429,10 @@
     <widget class="QLabel" name="PMADCurrentSurname">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>250</y>
+       <x>120</x>
+       <y>240</y>
        <width>251</width>
-       <height>21</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="font">
@@ -504,7 +504,7 @@
        <x>150</x>
        <y>430</y>
        <width>211</width>
-       <height>16</height>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -999,6 +999,9 @@
        <width>171</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="currentSection">
+      <enum>QDateTimeEdit::Section::DaySection</enum>
      </property>
      <property name="displayFormat">
       <string>dd-MM-yyyy</string>

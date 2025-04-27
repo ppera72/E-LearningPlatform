@@ -31,6 +31,11 @@ professorMain::professorMain(QWidget *parent)
     connect(ui->PMAccountDetailsBackButton, &QPushButton::clicked, this, &professorMain::on_PMAccountDetailsBackButton_clicked);
     connect(ui->PMViewAccountDataButton, &QPushButton::clicked, this, &professorMain::on_PMViewAccountDataButton_clicked);
 
+    connect(ui->PMChangeEmailButton, &QPushButton::clicked, this, &professorMain::on_PMChangeEmailButton_clicked);
+    connect(ui->PMChangePasswordButton, &QPushButton::clicked, this, &professorMain::on_PMChangePasswordButton_clicked);
+    connect(ui->PMChangeNameButton, &QPushButton::clicked, this, &professorMain::on_PMChangeNameButton_clicked);
+    connect(ui->PMChangeSurnameButton, &QPushButton::clicked, this, &professorMain::on_PMChangeSurnameButton_clicked);
+
     connect(ui->PMLogOutButton, &QPushButton::clicked, [=](){
         emit this->backLogin();
     });
@@ -121,19 +126,51 @@ void professorMain::on_PMGradeSelectedAssignmentButton_clicked(){
 
 // ACCOUNT DETAILS PAGE
 void professorMain::on_PMChangeEmailButton_clicked(){
-
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Input a valid email!"), tr("Your new email:"), QLineEdit::Normal, QString(), &ok);
+    if (ok && !text.isEmpty() && !QueryFunctions.checkIfInStudentDatabase(text, currentProfessor.Password()) && !QueryFunctions.checkIfInProfDatabase(text, currentProfessor.Password())){
+        QueryFunctions.changeEmail(text, false, currentProfessor.Email(), currentProfessor.Id());
+        currentProfessor.Email(text);
+    }
+    else{
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
+    }
 }
 
 void professorMain::on_PMChangePasswordButton_clicked(){
-
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Input a valid password!"), tr("Your new password:"), QLineEdit::Password, QString(), &ok);
+    if (ok && !text.isEmpty()){
+        QueryFunctions.changePassword(text, false, currentProfessor.Password(), currentProfessor.Id());
+        currentProfessor.Password(text);
+    }
+    else{
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
+    }
 }
 
 void professorMain::on_PMChangeNameButton_clicked(){
-
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Input a valid name!"), tr("Your new name:"), QLineEdit::Normal, QString(), &ok);
+    if (ok && !text.isEmpty()){
+        QueryFunctions.changeName(text, false, currentProfessor.Name(), currentProfessor.Id());
+        currentProfessor.Name(text);
+    }
+    else{
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
+    }
 }
 
 void professorMain::on_PMChangeSurnameButton_clicked(){
-
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Input a valid surname!"), tr("Your new surname:"), QLineEdit::Normal, QString(), &ok);
+    if (ok && !text.isEmpty()){
+        QueryFunctions.changeSurname(text, false, currentProfessor.Surname(), currentProfessor.Id());
+        currentProfessor.Surname(text);
+    }
+    else{
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
+    }
 }
 
 void professorMain::on_PMAccountDetailsBackButton_clicked(){
@@ -154,8 +191,12 @@ void professorMain::on_ATAddTestButton_clicked(){
     ATTitle = ui->ATTitleInput->text();
     Date BeginDate = ui->ATBeginDateDateEdit->text().toStdString();
     Date EndDate = ui->ATEndDateDateEdit->text().toStdString();
-    ATBeginDate = ui->ATBeginDateDateEdit->text();
-    ATEndDate = ui->ATEndDateDateEdit->text();
+    QString begDate = ui->ATBeginDateDateEdit->text();
+    QString endDate = ui->ATEndDateDateEdit->text();
+    QDate bDate = QDate::fromString(begDate, "dd-MM-yyyy");
+    QDate eDate = QDate::fromString(endDate, "dd-MM-yyyy");
+    ATBeginDate = bDate.toString("yyyy-MM-dd");
+    ATEndDate = eDate.toString("yyyy-MM-dd");
     ATCourceCode = ui->ATCourceCodeCombo->currentText().right(6).mid(1, 4);
 
     if(ATTitle.isEmpty()){
@@ -206,7 +247,8 @@ void professorMain::on_ATAQAddQuestionsButton_clicked(){
         for(int i = 0; i < ATAQNumberOfQuestions; i++){
             bool okQ, okCA, okWA1, okWA2, okWA3;
             std::vector<QString> questionAnswers;
-            QString question = QInputDialog::getText(this, tr("Question"),tr(&"Question " [ (i + 1) ]), QLineEdit::Normal,"Question", &okQ);
+            QString quesNum = tr("Question %1").arg(i + 1);
+            QString question = QInputDialog::getText(this, tr("Question"), quesNum, QLineEdit::Normal,"Question", &okQ);
             if (okQ && !question.isEmpty())
             {
                 questionAnswers.push_back(question);
@@ -266,8 +308,12 @@ void professorMain::on_AAAddButton_clicked(){
     AACourceCode = ui->AACourceCodeCombo->currentText().right(6).mid(1, 4);
     Date BeginDate = ui->AABeginDateDateEdit->text().toStdString();
     Date EndDate = ui->AAEndDateDateEdit->text().toStdString();
-    AABeginDate = ui->AABeginDateDateEdit->text();
-    AAEndDate = ui->AAEndDateDateEdit->text();
+    QString begDate = ui->AABeginDateDateEdit->text();
+    QString endDate = ui->AAEndDateDateEdit->text();
+    QDate bDate = QDate::fromString(begDate, "dd-MM-yyyy");
+    QDate eDate = QDate::fromString(endDate, "dd-MM-yyyy");
+    AABeginDate = bDate.toString("yyyy-MM-dd");
+    AAEndDate = eDate.toString("yyyy-MM-dd");
 
     //qDebug()<<AATitle<<", "<<AADesc<<", "<<AACourceCode<<", "<<AABeginDate.wholeDate()<<", "<<AAEndDate.wholeDate();
 
@@ -327,8 +373,14 @@ void professorMain::on_PMGTAViewSelectedFileButton_clicked(){
         QString selFileStr = selectedFile->text();
         QFile file(selFileStr);
 
+        if (!file.exists()) {
+            QMessageBox::warning(this, "File Error", "Selected file does not exist!", QMessageBox::Ok);
+            return;
+        }
+
         if(!file.open(QFile::ReadOnly | QFile::Text)){
             QMessageBox::warning(this, "File Error", "File is empty!", QMessageBox::Ok);
+            return;
         }
         QTextStream in(&file);
         QString text = in.readAll();

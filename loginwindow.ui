@@ -18,12 +18,15 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>600</height>
+     <width>801</width>
+     <height>621</height>
     </rect>
    </property>
    <property name="contextMenuPolicy">
     <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+   </property>
+   <property name="toolTip">
+    <string/>
    </property>
    <property name="currentIndex">
     <number>0</number>
@@ -45,11 +48,16 @@
     <widget class="QLabel" name="emailLoginLabel">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>220</x>
        <y>270</y>
-       <width>49</width>
-       <height>16</height>
+       <width>71</width>
+       <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Email:</string>
@@ -58,11 +66,16 @@
     <widget class="QLabel" name="passwordLoginLabel">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>200</x>
        <y>310</y>
-       <width>61</width>
-       <height>20</height>
+       <width>101</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Password:</string>
@@ -71,21 +84,27 @@
     <widget class="QLineEdit" name="emailLoginInput">
      <property name="geometry">
       <rect>
-       <x>330</x>
+       <x>320</x>
        <y>270</y>
-       <width>191</width>
+       <width>261</width>
        <height>24</height>
       </rect>
+     </property>
+     <property name="placeholderText">
+      <string/>
      </property>
     </widget>
     <widget class="QLineEdit" name="passwordLoginInput">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>310</y>
-       <width>191</width>
+       <x>320</x>
+       <y>320</y>
+       <width>261</width>
        <height>24</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::EchoMode::Password</enum>
@@ -94,7 +113,7 @@
     <widget class="QPushButton" name="loginButton">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>360</x>
        <y>380</y>
        <width>101</width>
        <height>41</height>
@@ -102,6 +121,9 @@
      </property>
      <property name="text">
       <string>Login</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="exitButton">
@@ -119,119 +141,11 @@
     </widget>
    </widget>
    <widget class="QWidget" name="registerWidnow">
-    <widget class="QLineEdit" name="nameRegisterInput">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>90</y>
-       <width>181</width>
-       <height>24</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="surnameRegisterInput">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>140</y>
-       <width>181</width>
-       <height>24</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="emailRegisterInput">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>190</y>
-       <width>171</width>
-       <height>24</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="passwordRegisterInput">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>250</y>
-       <width>171</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::EchoMode::Password</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="registerToDatabaseButton">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>500</y>
-       <width>80</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Register</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="fullNameRegisterLabel">
-     <property name="geometry">
-      <rect>
-       <x>128</x>
-       <y>100</y>
-       <width>61</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Full Name:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="surnameRegisterLabel">
-     <property name="geometry">
-      <rect>
-       <x>128</x>
-       <y>150</y>
-       <width>61</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Surname:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="emailRegisterLabel">
-     <property name="geometry">
-      <rect>
-       <x>128</x>
-       <y>200</y>
-       <width>61</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Email:</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="passwordRegisterLabel">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>260</y>
-       <width>61</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Password:</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="backToLoginPageButton">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>500</y>
+       <x>400</x>
+       <y>510</y>
        <width>131</width>
        <height>24</height>
       </rect>
@@ -240,102 +154,33 @@
       <string>Back to Login Page</string>
      </property>
     </widget>
-    <widget class="QToolButton" name="passwordRegisterHelpButton">
+    <widget class="QLabel" name="surnameRegisterLabel">
      <property name="geometry">
       <rect>
-       <x>450</x>
-       <y>270</y>
-       <width>23</width>
-       <height>23</height>
+       <x>238</x>
+       <y>90</y>
+       <width>71</width>
+       <height>20</height>
       </rect>
      </property>
-     <property name="text">
-      <string>?</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="studentRegisterRadioButton">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>340</y>
-       <width>91</width>
-       <height>22</height>
-      </rect>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="text">
-      <string>Student</string>
+      <string>Surname:</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="professorRegisterRadioButton">
+    <widget class="QLineEdit" name="emailRegisterInput">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>340</y>
-       <width>91</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Professor</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="studentMajorRegisterCombo">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>400</y>
-       <width>251</width>
+       <x>350</x>
+       <y>140</y>
+       <width>201</width>
        <height>24</height>
       </rect>
      </property>
-     <item>
-      <property name="text">
-       <string>Aviation and Astronautics [AvAs]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Chemical Engineering and Technology [ChET]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Chemical Technology [ChTe]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Civil Engineering [CiEn]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Computer Engineering [CoEn]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Electrical Engineering [ElEn]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Finance and Accounting [FiAc]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Logistics [Logi]</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Modern Management [MoMa]</string>
-      </property>
-     </item>
     </widget>
     <widget class="QLabel" name="studentMajorRegisterLabel">
      <property name="enabled">
@@ -344,24 +189,207 @@
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>370</y>
-       <width>91</width>
+       <y>380</y>
+       <width>131</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Student Major:</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="professorSpecRegisterCombo">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
+    <widget class="QLabel" name="fullNameRegisterLabel">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>400</y>
-       <width>251</width>
+       <x>238</x>
+       <y>40</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Full Name:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="surnameRegisterInput">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>90</y>
+       <width>201</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="emailRegisterLabel">
+     <property name="geometry">
+      <rect>
+       <x>238</x>
+       <y>140</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Email:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="passwordRegisterInput">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>180</y>
+       <width>201</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Password must contain:
+- minimum 8 characters
+- minimum 1 uppercase and 1 lowercase letter
+- minimum 1 digit
+- minimum 1 special charater (#?!@$%^&amp;*-)
+</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="passwordRegisterLabel">
+     <property name="geometry">
+      <rect>
+       <x>238</x>
+       <y>180</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Password:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="registerToDatabaseButton">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>510</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Register</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateOfBirthRegisterEdit">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>230</y>
+       <width>110</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="displayFormat">
+      <string>dd-MM-yyyy</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="dateOfBirthRegisterLabel">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>230</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Date of Birth:</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="studentRegisterRadioButton">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>330</y>
+       <width>91</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Student</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="professorRegisterRadioButton">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>330</y>
+       <width>91</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Professor</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="nameRegisterInput">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>40</y>
+       <width>201</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="studentMajorRegisterCombo">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>410</y>
+       <width>231</width>
        <height>24</height>
       </rect>
      </property>
@@ -414,9 +442,9 @@
     <widget class="QComboBox" name="professorTitleRegisterCombo">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>400</y>
-       <width>65</width>
+       <x>590</x>
+       <y>410</y>
+       <width>121</width>
        <height>24</height>
       </rect>
      </property>
@@ -449,11 +477,16 @@
     <widget class="QLabel" name="professorSpecRegisterLabel">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>370</y>
-       <width>141</width>
-       <height>16</height>
+       <x>330</x>
+       <y>380</y>
+       <width>201</width>
+       <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Professor Specialization:</string>
@@ -462,72 +495,110 @@
     <widget class="QLabel" name="professorTitleRegisterLabel">
      <property name="geometry">
       <rect>
-       <x>610</x>
-       <y>370</y>
-       <width>91</width>
+       <x>590</x>
+       <y>380</y>
+       <width>121</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Professor Title:</string>
      </property>
     </widget>
-    <widget class="QDateEdit" name="dateOfBirthRegisterEdit">
+    <widget class="QComboBox" name="professorSpecRegisterCombo">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>410</y>
+       <width>231</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Aviation and Astronautics [AvAs]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Chemical Engineering and Technology [ChET]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Chemical Technology [ChTe]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Civil Engineering [CiEn]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Computer Engineering [CoEn]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Electrical Engineering [ElEn]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Finance and Accounting [FiAc]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Logistics [Logi]</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Modern Management [MoMa]</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="studiesYearRegisterLabel">
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>300</y>
-       <width>201</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="displayFormat">
-      <string>dd-MM-yyyy</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="dateOfBirthRegisterLabel">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>310</y>
-       <width>81</width>
+       <y>290</y>
+       <width>101</width>
        <height>16</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>Date Of Birth:</string>
+      <string>Studies Year:</string>
      </property>
     </widget>
     <widget class="QSpinBox" name="studentStudiesYearSpinBox">
      <property name="geometry">
       <rect>
-       <x>470</x>
-       <y>170</y>
-       <width>42</width>
+       <x>350</x>
+       <y>290</y>
+       <width>111</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
      </property>
     </widget>
    </widget>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>exitButton</sender>
-   <signal>clicked()</signal>
-   <receiver>loginWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>627</x>
-     <y>520</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>963</x>
-     <y>671</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

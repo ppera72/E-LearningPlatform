@@ -42,7 +42,7 @@ private:
     Ui::loginWindow *ui;
 
 
-
+    void on_exitButton_clicked();
     void on_loginButton_clicked();
 
     void on_registerButton_clicked();

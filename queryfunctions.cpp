@@ -48,32 +48,76 @@ void queryFunctions::checkTableNames(bool st){
     }
 }
 
-void queryFunctions::changeName(QString name, bool st, QString oldName){
-
-}
-
-void queryFunctions::changeSurname(QString surname, bool st, QString oldSurname){
-
-}
-
-void queryFunctions::changeEmail(QString email, bool st, QString oldEmail){
-    bool ok = checkEmail(email);
-    QString EMAIL = oldEmail;
-    qDebug()<<ok;
+void queryFunctions::changeName(QString name, bool st, QString oldName, int id){
+    bool ok = checkName(name);
     checkTableNames(st);
     if(ok){
         QSqlQuery query;
-        query.prepare("UPDATE " + tableNameData + " SET " + tableEmail + "  = :newEmail WHERE " + tableEmail + " = :oldEmail");
+        query.prepare("UPDATE " + tableNameAccount + " SET " + tableUserName + "  = :name WHERE " + tableUserName + " = :oldName AND " + tableID + " = :id");
+        query.bindValue(":name", name);
+        query.bindValue(":oldName", oldName);
+        query.bindValue(":id", id);
+        bool resData = query.exec();
+        if (!resData) {
+            qDebug() << "SQL ERROR: " << query.lastError().text();
+        }
+        else{
+            QMessageBox msgInformation;
+            msgInformation.setText("Name changed successfully!");
+            msgInformation.exec();
+        }
+    }
+    else{
+        QMessageBox msgWarning;
+        msgWarning.setText("Name is incorect!\nTry again!");
+        msgWarning.exec();
+    }
+}
+
+void queryFunctions::changeSurname(QString surname, bool st, QString oldSurname, int id){
+    bool ok = checkName(surname);
+    checkTableNames(st);
+    if(ok){
+        QSqlQuery query;
+        query.prepare("UPDATE " + tableNameAccount + " SET " + tableUserSurname + "  = :surname WHERE " + tableUserSurname + " = :oldSurname AND " + tableID + " = :id");
+        query.bindValue(":surname", surname);
+        query.bindValue(":oldSurname", oldSurname);
+        query.bindValue(":id", id);
+        bool resData = query.exec();
+        if (!resData) {
+            qDebug() << "SQL ERROR: " << query.lastError().text();
+        }
+        else{
+            QMessageBox msgInformation;
+            msgInformation.setText("Surname changed successfully!");
+            msgInformation.exec();
+        }
+    }
+    else{
+        QMessageBox msgWarning;
+        msgWarning.setText("Surname is incorect!\nTry again!");
+        msgWarning.exec();
+    }
+}
+
+void queryFunctions::changeEmail(QString email, bool st, QString oldEmail, int id){
+    bool ok = checkEmail(email);
+    checkTableNames(st);
+    if(ok){
+        QSqlQuery query;
+        query.prepare("UPDATE " + tableNameData + " SET " + tableEmail + "  = :newEmail WHERE " + tableEmail + " = :oldEmail AND " + tableID + " = :id");
         query.bindValue(":newEmail", email);
         query.bindValue(":oldEmail", oldEmail);
-        if (query.exec()) {
-            qDebug() << "Email updated successfully!";
-        } else {
-            qDebug() << "Error updating email:" << query.lastError().text();
+        query.bindValue(":id", id);
+        bool resData = query.exec();
+        if (!resData) {
+            qDebug() << "SQL ERROR: " << query.lastError().text();
         }
-        QMessageBox msgInformation;
-        msgInformation.setText("Email changed successfully!");
-        msgInformation.exec();
+        else{
+            QMessageBox msgInformation;
+            msgInformation.setText("Email changed successfully!");
+            msgInformation.exec();
+        }
     }
     else{
         QMessageBox msgWarning;
@@ -81,27 +125,28 @@ void queryFunctions::changeEmail(QString email, bool st, QString oldEmail){
         msgWarning.exec();
     }
 }
-void queryFunctions::changePassword(QString pass, bool st, QString oldPass){
-    bool ok = checkEmail(pass);
-    qDebug()<<ok;
+void queryFunctions::changePassword(QString pass, bool st, QString oldPass, int id){
+    bool ok = checkPassword(pass);
     checkTableNames(st);
     if(ok){
         QSqlQuery query;
-        query.prepare("UPDATE " + tableNameData + " SET " + tableEmail + "  = :newEmail WHERE " + tableEmail + " = :oldEmail");
-        query.bindValue(":newEmail", pass);
-        query.bindValue(":oldEmail", oldPass);
-        if (query.exec()) {
-            qDebug() << "Email updated successfully!";
-        } else {
-            qDebug() << "Error updating email:" << query.lastError().text();
+        query.prepare("UPDATE " + tableNameData + " SET " + tablePassword + "  = :password WHERE " + tablePassword + " = :oldPass AND " + tableID + " = :id");
+        query.bindValue(":password", pass);
+        query.bindValue(":oldPass", oldPass);
+        query.bindValue(":id", id);
+        bool resData = query.exec();
+        if (!resData) {
+            qDebug() << "SQL ERROR: " << query.lastError().text();
         }
-        QMessageBox msgInformation;
-        msgInformation.setText("Email changed successfully!");
-        msgInformation.exec();
+        else{
+            QMessageBox msgInformation;
+            msgInformation.setText("Password changed successfully!");
+            msgInformation.exec();
+        }
     }
     else{
         QMessageBox msgWarning;
-        msgWarning.setText("Email is incorect!\nTry again!");
+        msgWarning.setText("Password is incorect!\nTry again!");
         msgWarning.exec();
     }
 }
@@ -205,7 +250,7 @@ void queryFunctions::insertProfessor(QString name, QString surname, QString emai
     loginDataQuery.bindValue(":pass", pass);
     bool resData = loginDataQuery.exec();
     if (!resData) {
-        qDebug() << "SQL ERROR: " << loginDataQuery.lastError().text();
+        qDebug() << "SQL ERROR: insertLD" << loginDataQuery.lastError().text();
     }
     loginDataQuery.clear();
 
@@ -214,7 +259,7 @@ void queryFunctions::insertProfessor(QString name, QString surname, QString emai
     loginDataQuery.bindValue(":password", pass);
     bool ans = loginDataQuery.exec();
     if (!ans) {
-        qDebug() << "SQL ERROR: " << loginDataQuery.lastError().text();
+        qDebug() << "SQL ERROR: select" << loginDataQuery.lastError().text();
         // messagebox?
     }
     int profID;
@@ -306,7 +351,7 @@ std::vector<std::vector<QString>> queryFunctions::getStudentGrades(int id){
 
 void queryFunctions::insertAssignment(QString title, QString desc, QString cC, QString begDate, QString endDate){
     QSqlQuery query;
-    query.prepare("INSERT INTO assignments (assignmentTitle, assignmentDesc, assignmentBeginDate, assignmentEndDate, id_major, filename, isGraded) VALUES (:title, :desc, :begDate, :endDate, (SELECT id_major FROM major WHERE abbreviation = :cc), NULL, false)");
+    query.prepare("INSERT INTO assignments (assignmentTitle, assignmentDesc, assignmentBeginDate, assignmentEndDate, id_major) VALUES (:title, :desc, :begDate, :endDate, (SELECT id_major FROM major WHERE abbreviation = :cc))");
     query.bindValue(":title", title);
     query.bindValue(":desc", desc);
     query.bindValue(":begDate", begDate);

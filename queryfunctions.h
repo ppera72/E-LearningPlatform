@@ -20,10 +20,10 @@ public:
     bool checkName(QString name);
 
     bool student, professor;
-    void changeEmail(QString email, bool st, QString oldEmail);
-    void changePassword(QString pass, bool st, QString oldPass);
-    void changeName(QString pass, bool st, QString oldName);
-    void changeSurname(QString pass, bool st, QString oldSurname);
+    void changeEmail(QString email, bool st, QString oldEmail, int id);
+    void changePassword(QString pass, bool st, QString oldPass, int id);
+    void changeName(QString pass, bool st, QString oldName, int id);
+    void changeSurname(QString pass, bool st, QString oldSurname, int id);
     std::vector<QString> getStudentData(QString email, QString pass);
     std::vector<QString> getProfessorData(QString email, QString pass);
     void insertStudent(QString name, QString surname, QString email, QString pass, QString date, QString major, int stuYear);

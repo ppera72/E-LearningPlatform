@@ -125,11 +125,12 @@ void studentMain::on_SMViewAccountDataButton_clicked()
 void studentMain::on_changeEmailButton_clicked(){
     bool ok;
     QString text = QInputDialog::getText(this, tr("Input a valid email!"), tr("Your new email:"), QLineEdit::Normal, QString(), &ok);
-    if (ok && !text.isEmpty()){
-        QueryFunctions.changeEmail(text, true, currentStudent.Email());
+    if (ok && !text.isEmpty() && !QueryFunctions.checkIfInStudentDatabase(text, currentStudent.Password()) && !QueryFunctions.checkIfInProfDatabase(text, currentStudent.Password())){
+        QueryFunctions.changeEmail(text, true, currentStudent.Email(), currentStudent.Id());
+        currentStudent.Email(text);
     }
     else{
-        qDebug()<<"*wrong choice buzzer*";
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
     }
 }
 
@@ -137,10 +138,11 @@ void studentMain::on_changePasswordButton_clicked(){
     bool ok;
     QString text = QInputDialog::getText(this, tr("Input a valid password!"), tr("Your new password:"), QLineEdit::Password, QString(), &ok);
     if (ok && !text.isEmpty()){
-        QueryFunctions.changePassword(text, true, currentStudent.Password());
+        QueryFunctions.changePassword(text, true, currentStudent.Password(), currentStudent.Id());
+        currentStudent.Password(text);
     }
     else{
-        qDebug()<<"*wrong choice buzzer*";
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
     }
 }
 
@@ -148,10 +150,11 @@ void studentMain::on_changeNameButton_clicked(){
     bool ok;
     QString text = QInputDialog::getText(this, tr("Input a valid name!"), tr("Your new name:"), QLineEdit::Normal, QString(), &ok);
     if (ok && !text.isEmpty()){
-        QueryFunctions.changeName(text, true, currentStudent.Name());
+        QueryFunctions.changeName(text, true, currentStudent.Name(), currentStudent.Id());
+        currentStudent.Name(text);
     }
     else{
-        qDebug()<<"*wrong choice buzzer*";
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
     }
 }
 
@@ -159,10 +162,11 @@ void studentMain::on_changeSurnameButton_clicked(){
     bool ok;
     QString text = QInputDialog::getText(this, tr("Input a valid surname!"), tr("Your new surname:"), QLineEdit::Normal, QString(), &ok);
     if (ok && !text.isEmpty()){
-        QueryFunctions.changeSurname(text, true, currentStudent.Surname());
+        QueryFunctions.changeSurname(text, true, currentStudent.Surname(), currentStudent.Id());
+        currentStudent.Surname(text);
     }
     else{
-        qDebug()<<"*wrong choice buzzer*";
+        QMessageBox::warning(this, "Account Change", "Error in changing data!", QMessageBox::Ok);
     }
 }
 
@@ -176,7 +180,7 @@ void studentMain::on_SMAccountDetailsBackButton_clicked(){
 QListWidgetItem* testQList;
 QString selectedTest;
 void studentMain::on_SMStartSelectedTestButton_clicked(){
-    int correctAnswersScore = 0;
+    int testQuestionNumber = 0, correctAnswersScore = 0;
     int testID, profID;
     testQList = ui->SMUpcomingTestsList->currentItem();
     if(testQList->text().isEmpty()){
@@ -194,7 +198,7 @@ void studentMain::on_SMStartSelectedTestButton_clicked(){
         ui->SMSTTAllAnswersLabel->setText(QString::number(testQuestions.size()));
 
         for(auto&& test : testQuestions){
-            ui->SMSTTCorrectAnswersLabel->setText(QString::number(correctAnswersScore));
+            ui->SMSTTCorrectAnswersLabel->setText(QString::number(testQuestionNumber + 1));
 
             QEventLoop loop;
             std::vector<QString> answers = {test[2], test[3], test[4], test[5]};
@@ -219,11 +223,11 @@ void studentMain::on_SMStartSelectedTestButton_clicked(){
                 }
                 ansButtons[i]->setChecked(false);
             }
-            ui->SMSTTCorrectAnswersLabel->setText(QString::number(correctAnswersScore));
+            testQuestionNumber += 1;
         }
         float grade = assignAGrade(correctAnswersScore, testQuestions.size());
 
-        QString messBoxMessage = "You've completed this test\nYou've scored: " + QString::number(correctAnswersScore) + " and got: " + QString::number(grade);
+        QString messBoxMessage = "You've completed this test\nYou've scored: " + QString::number(correctAnswersScore) + " / " + QString::number(testQuestions.size()) + " and got: \n" + QString::number(grade);
         QMessageBox::information(this, "Test Completed!", messBoxMessage, QMessageBox::Ok);
 
         // insert grade
@@ -289,7 +293,7 @@ void studentMain::on_SMSTASendAssignmentButton_clicked(){
     }
     //send
     QueryFunctions.sendAssignment(assID, currentStudent.Id(), assignmentFile, currentStudent.CourseCode());
-    qDebug()<<"post sendAssignment";
+    //qDebug()<<"post sendAssignment";
     QMessageBox::information(this, "Sending Assignment", "Assignemnt Send Successfully!", QMessageBox::Ok);
     ui->SMSTAFileList->clear();
 

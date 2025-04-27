@@ -34,7 +34,7 @@ loginWindow::loginWindow(QWidget *parent)
     connect(ui->backToLoginPageButton, &QPushButton::clicked, this, &loginWindow::on_backToLoginPageButton_clicked);
     connect(ui->loginButton, &QPushButton::clicked, this, &loginWindow::on_loginButton_clicked);
     connect(ui->registerToDatabaseButton, &QPushButton::clicked, this, &loginWindow::on_registerToDatabaseButton_clicked);
-    connect(ui->passwordRegisterHelpButton, &QPushButton::clicked, this, &loginWindow::on_passwordRegisterHelpButton_clicked);
+    connect(ui->exitButton, &QPushButton::clicked, this, &loginWindow::on_exitButton_clicked);
     connect(StudentMain, &studentMain::backLogin, [=](){
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Log Out", "Are you sure you want to log out?", QMessageBox::Yes|QMessageBox::No);
@@ -62,6 +62,11 @@ loginWindow::loginWindow(QWidget *parent)
 loginWindow::~loginWindow()
 {
     delete ui;
+}
+
+void loginWindow::on_exitButton_clicked()
+{
+    loginWindow::close();
 }
 
 
